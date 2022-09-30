@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">AIP</string>
+
+    <!--    login    -->
+    <string name="login_identifier">Identifiant</string>
+    <string name="login_password">Mot de passe</string>
+    <string name="login_adress">Adresse</string>
+    <string name="login_port">Port</string>
+    <string name="login_test">Tester</string>
+    <string name="login_connection">Connexion</string>
 </resources>

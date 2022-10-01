@@ -11,11 +11,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    savedStateHandle: SavedStateHandle,
     private val loginInteractor : LoginInteractor
 ):ViewModel() {
     private val _loginData = MutableLiveData<Login>()
-    val loginLiveData : LiveData<Login> = _loginData
+    private val loginLiveData : LiveData<Login> = _loginData
 
     fun getLoginData():LiveData<Login>{
         return loginLiveData

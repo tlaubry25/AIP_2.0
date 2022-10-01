@@ -16,7 +16,7 @@ class LoginInteractor @Inject constructor(
     operator fun invoke(login: String, password: String): Flow<Resource<Login>> = flow {
         try {
             emit(Resource.Loading<Login>())
-            val login = repository.getLogin(login = login, password = password).toLogin()
+            val login = repository.getLogin(login = login, password = password).data.toLogin()
             emit(Resource.Success<Login>(login))
         } catch (e: HttpException) {
             emit(Resource.Error<Login>(e.localizedMessage ?: "An unexpected error happened"))

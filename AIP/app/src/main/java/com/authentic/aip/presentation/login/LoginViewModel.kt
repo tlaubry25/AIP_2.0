@@ -18,7 +18,6 @@ class LoginViewModel @Inject constructor(
     fun getLogin(login: String, password : String){
         loginInteractor(login, password).onEach { result->
             when(result){
-                //TODO déterminer l'état du retour via un objet (exemple : LoginState dans le package : presentation/login)?
                 is Resource.Error ->{ _loginData.value = LoginState(error = "testError") }
                 is Resource.Loading ->{ _loginData.value = LoginState(isLoading = true)  }
                 is Resource.Success ->{ _loginData.value = LoginState(loginObject = result.data) }

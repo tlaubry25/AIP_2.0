@@ -1,6 +1,7 @@
 package com.authentic.aip.data.remote.dto.listRequest
 
-
+import com.authentic.aip.data.remote.dto.PageDataDto
+import com.authentic.aip.data.remote.dto.toPageData
 import com.authentic.aip.domain.model.ListRequest
 import com.authentic.aip.domain.model.POs
 import com.google.gson.annotations.SerializedName

@@ -5,9 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.authentic.aip.common.Resource
-import com.authentic.aip.domain.interactor.MenuInteractor
 import com.authentic.aip.domain.interactor.RequestDetailInteractor
-import com.authentic.aip.presentation.menu.MenuState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach

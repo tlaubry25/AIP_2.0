@@ -19,4 +19,11 @@ enum class StatusRequestEnum(val statusCode : Int){
     REFUSEE(90),
     ANNULEE(99)
 }
+enum class TypeAttachmentEnum(){
+    WORD,
+    PDF,
+    ZIP,
+    EXCEL,
+    TXT
+}
 }

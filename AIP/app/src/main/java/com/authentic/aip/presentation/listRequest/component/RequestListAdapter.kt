@@ -26,7 +26,10 @@ class RequestListAdapter : RecyclerView.Adapter<RequestListAdapter.MyViewHolder>
         clickListener = clickListenerInput
     }
     fun setRequestList(listRequest : List<POs>){
-        requestList = listRequest
+        var mutableRequestList : MutableList<POs> = mutableListOf()
+        requestList?.let { mutableRequestList.addAll(it) }
+        listRequest?.let { mutableRequestList.addAll(it) }
+        requestList = mutableRequestList
         notifyDataSetChanged()
     }
 
@@ -65,7 +68,7 @@ class RequestListAdapter : RecyclerView.Adapter<RequestListAdapter.MyViewHolder>
         //TEST EN FONCTION DE L'AVANCEMENT POUR AFFICHER LE STATUT OU NON
         val idTexte : Int
         var showStatus = true
-        var drawableStatus = R.drawable.chrono
+        var drawableStatus : Drawable? = null
 
         when(this.requestList?.get(position)?.dest){
             EnumClass.StatusRequestEnum.ANNULEE.statusCode.toString()->{
@@ -80,9 +83,11 @@ class RequestListAdapter : RecyclerView.Adapter<RequestListAdapter.MyViewHolder>
             }
             EnumClass.StatusRequestEnum.VALIDE_COMPLET.statusCode.toString()->{
                 idTexte = R.string.request_status_accepted_closed
+                drawableStatus = ContextCompat.getDrawable(context!!, R.drawable.approuved_black)
             }
             EnumClass.StatusRequestEnum.VALIDEE.statusCode.toString()->{
                 idTexte = R.string.request_status_accepted
+                drawableStatus = ContextCompat.getDrawable(context!!, R.drawable.thumb)
             }
             EnumClass.StatusRequestEnum.REFUSEE.statusCode.toString()->{
                 idTexte = R.string.request_status_denied
@@ -113,7 +118,7 @@ class RequestListAdapter : RecyclerView.Adapter<RequestListAdapter.MyViewHolder>
         }
 
         if(drawableUpdate==null){
-            holder.iv_update.visibility = View.GONE
+            holder.iv_update.visibility = View.INVISIBLE
         }else{
             holder.iv_update.visibility = View.VISIBLE
         }
@@ -122,13 +127,13 @@ class RequestListAdapter : RecyclerView.Adapter<RequestListAdapter.MyViewHolder>
 
         holder.itemView.setOnClickListener { clickListener?.onRequestClick(requestList?.get(position)) }
 
+        if(drawableStatus!=null){
+            Glide.with(context!!)
+                .load(drawableStatus)
+                .apply(RequestOptions.centerCropTransform())
+                .into(holder.iv_status)
 
-        Glide.with(context!!)
-            .load(drawableStatus)
-            .apply(RequestOptions.centerCropTransform())
-            .into(holder.iv_status)
-
-
+        }
 
         Glide.with(context!!)
             .load(drawableUpdate)

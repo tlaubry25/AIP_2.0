@@ -1,4 +1,4 @@
-package com.authentic.aip.data.remote.dto.listRequest
+package com.authentic.aip.data.remote.dto
 
 
 import com.authentic.aip.domain.model.PageData
@@ -11,6 +11,6 @@ data class PageDataDto(
     val nbRes: Int
 )
 
-fun PageDataDto.toPageData(): PageData {
+fun PageDataDto.toPageData():PageData{
     return PageData(nbPg = nbPg, nbRes = nbRes)
 }

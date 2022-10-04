@@ -1,5 +1,6 @@
 package com.authentic.aip.presentation
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -42,6 +43,19 @@ class RequestDetailActivity:AppCompatActivity() {
                 }
             }
         }
+
+        val notesTextview = findViewById<TextView>(R.id.tv_section_notes)
+        notesTextview.setOnClickListener {
+            val newActivityIntent = Intent(this, NotesListActivity::class.java)
+            startActivity(newActivityIntent)
+        }
+
+        val attachmentsTextview = findViewById<TextView>(R.id.tv_section_attachement)
+        attachmentsTextview.setOnClickListener {
+            val newActivityIntent = Intent(this, ListAttachmentsActivity::class.java)
+            startActivity(newActivityIntent)
+        }
+
 
     }
 

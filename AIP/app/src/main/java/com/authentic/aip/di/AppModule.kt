@@ -9,6 +9,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -21,10 +22,19 @@ object AppModule {
     @Singleton
     fun provideAipAPi():AipApi = Retrofit.Builder()
         .baseUrl(BASE_URL)
+        .client(createOkhttpClient())
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(CoroutineCallAdapterFactory())
         .build()
         .create(AipApi::class.java)
+
+    private fun createOkhttpClient():OkHttpClient{
+        val okHttpClient = OkHttpClient().newBuilder()
+            .addInterceptor(AddCookieInterceptor())
+            .addInterceptor(ReceivedCookieInterceptor())
+            .build()
+        return okHttpClient
+    }
 
     @Provides
     @Singleton

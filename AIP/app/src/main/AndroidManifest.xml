@@ -25,6 +25,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".presentation.MenuActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".presentation.ListRequestActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".presentation.RequestDetailActivity"
+            android:exported="true"/>
     </application>
 
 </manifest>

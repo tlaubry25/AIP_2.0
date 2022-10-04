@@ -7,7 +7,8 @@ enum class TypeRequestEnum {
 }
 
 enum class PreferencesEnum{
-    SESSION_ID
+    SESSION_ID,
+    REQUEST_ID
 }
 
 enum class StatusRequestEnum(val statusCode : Int){

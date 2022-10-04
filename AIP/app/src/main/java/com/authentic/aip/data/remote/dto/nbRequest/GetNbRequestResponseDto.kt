@@ -1,6 +1,8 @@
-package com.authentic.aip.data.remote.dto
+package com.authentic.aip.data.remote.dto.nbRequest
 
 
+import com.authentic.aip.data.remote.dto.FormErrors
+import com.authentic.aip.data.remote.dto.Status
 import com.google.gson.annotations.SerializedName
 
 data class GetNbRequestResponseDto(

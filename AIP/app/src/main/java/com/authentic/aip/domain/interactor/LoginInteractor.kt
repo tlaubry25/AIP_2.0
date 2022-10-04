@@ -1,7 +1,7 @@
 package com.authentic.aip.domain.interactor
 
 import com.authentic.aip.common.Resource
-import com.authentic.aip.data.remote.dto.toLogin
+import com.authentic.aip.data.remote.dto.login.toLogin
 import com.authentic.aip.domain.model.Login
 import com.authentic.aip.domain.repository.AppRepository
 import kotlinx.coroutines.flow.Flow

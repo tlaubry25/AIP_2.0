@@ -1,4 +1,4 @@
-package com.authentic.aip.data.remote.dto
+package com.authentic.aip.data.remote.dto.login
 
 
 import com.authentic.aip.domain.model.Login

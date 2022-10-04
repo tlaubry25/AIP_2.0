@@ -12,5 +12,31 @@
     <!--    menu    -->
     <string name="menu_progress">éléments en cours</string>
     <string name="menu_historical">historique</string>
+    <!--    requestList    -->
+    <string name="request_amount_text">%1$d €</string>
 
+    <!--    request status   -->
+    <string name="request_status_ongoing">En cours d\'approbation</string>
+    <string name="request_status_accepted">Acceptée</string>
+    <string name="request_status_denied">Refusée</string>
+    <string name="request_status_accepted_closed">Acceptée et Fermée</string>
+    <string name="request_status_closed">Fermée</string>
+    <string name="request_status_canceled">Annulée</string>
+    <string name="request_status_unknown">Statut inconnu</string>
+
+    <!--    request    -->
+    <string name="request_beneficiary">Bénéficiaire: </string>
+    <string name="request_center">Centre de coût: </string>
+    <string name="request_site">Site: </string>
+    <string name="request_project">Projet: </string>
+    <string name="request_date">Date demandée: </string>
+    <string name="request_supplier">Fournisseur: </string>
+    <string name="request_amount_local">Montant en dev. locale: </string>
+    <string name="request_amount_bought">Montant en dev. achat: </string>
+    <string name="request_budget_estimated">Montant budgété: </string>
+    <string name="request_budget_used">Montant déjà engagé: </string>
+    <!--    section    -->
+    <string name="section_attachement"> Pièces jointes (%1$d)</string>
+    <string name="section_notes">Notes (%1$d)</string>
+    <string name="section_detail">Détail</string>
 </resources>

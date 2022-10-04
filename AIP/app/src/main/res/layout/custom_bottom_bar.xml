@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<LinearLayout
+    android:id="@+id/ll_bottom_bar"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/bottom_button_height"
+    android:orientation="horizontal"
+    android:weightSum="4"
+    android:background="@drawable/shapeline"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintStart_toStartOf="parent">
+    <Button
+        android:id="@+id/button_valide"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/bottom_button_height"
+        android:layout_marginHorizontal="10dp"
+        android:layout_weight="1"
+        android:background="@drawable/valide"/>
+    <Button
+        android:id="@+id/button_question"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/bottom_button_height"
+        android:layout_marginHorizontal="10dp"
+        android:layout_weight="1"
+        android:background="@drawable/question"/>
+
+    <Button
+        android:id="@+id/button_refuse"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/bottom_button_height"
+        android:layout_marginHorizontal="10dp"
+        android:layout_weight="1"
+        android:background="@drawable/cross"/>
+
+    <Button
+        android:id="@+id/button_transfer"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/bottom_button_height"
+        android:layout_marginHorizontal="10dp"
+        android:layout_weight="1"
+        android:background="@drawable/changement"/>
+</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

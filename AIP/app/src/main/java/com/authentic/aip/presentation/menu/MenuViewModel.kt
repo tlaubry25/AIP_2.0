@@ -22,7 +22,7 @@ class MenuViewModel @Inject constructor(
     fun getNbRequest(uid: String){
         menuInteractor(uid).onEach { result->
             when(result){
-                is Resource.Error ->{ _menuData.value = MenuState(error = "testError") }
+                is Resource.Error ->{ _menuData.value = MenuState(error = result.message?:"ErrorWebservice") }
                 is Resource.Loading ->{ _menuData.value = MenuState(isLoading = true)  }
                 is Resource.Success ->{ _menuData.value = MenuState(nbRequest = result.data) }
             }

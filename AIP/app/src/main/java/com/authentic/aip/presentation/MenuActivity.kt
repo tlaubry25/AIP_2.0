@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.authentic.aip.R
 import com.authentic.aip.common.EnumClass
+import com.authentic.aip.framework.App.Companion.prefs
 import com.authentic.aip.presentation.menu.MenuViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -20,15 +21,19 @@ class MenuActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.menu_activity)
-        val sharepref = getSharedPreferences(getString(R.string.sharedPreferenceId), Context.MODE_PRIVATE)
-        val sessionId = sharepref.getString(EnumClass.PreferencesEnum.SESSION_ID.toString(), null)
+        this.supportActionBar?.hide()
+        val sessionId = prefs?.preferences?.getString(EnumClass.PreferencesEnum.SESSION_ID.toString(), null)
         if(!sessionId.isNullOrEmpty()){
             menuViewModel.getNbRequest(sessionId)
         }
         menuViewModel.menuLiveData.observe(this){
             when{
-                it.isLoading->{ Log.d("TLA", "STATE LOADING") }
-                it.error.isNotEmpty() -> { Log.d("TLA", "STATE ERROR") }
+                it.isLoading->{
+                    Log.d("TLA", "STATE LOADING")
+                }
+                it.error.isNotEmpty() -> {
+                    Log.d("TLA", "STATE ERROR")
+                }
                 it.nbRequest!=null ->{
                     Log.d("TLA", "STATE SUCCESS")
                     if(it.nbRequest>0){
@@ -38,19 +43,22 @@ class MenuActivity : AppCompatActivity(){
                         clNotification.visibility = View.VISIBLE
                     }
 
-
                 }
             }
         }
         val clOnGoingRequest = findViewById<ConstraintLayout>(R.id.cl_progress)
         val clHistoricalRequest = findViewById<ConstraintLayout>(R.id.cl_historical)
+
         clOnGoingRequest.setOnClickListener {
             val newActivityIntent = Intent(this, ListRequestActivity::class.java)
             newActivityIntent.putExtra("typeRequest", EnumClass.TypeRequestEnum.ONGOING.toString())
+            startActivity(newActivityIntent)
         }
+
         clHistoricalRequest.setOnClickListener {
             val newActivityIntent = Intent(this, ListRequestActivity::class.java)
             newActivityIntent.putExtra("typeRequest", EnumClass.TypeRequestEnum.DONE.toString())
+            startActivity(newActivityIntent)
         }
     }
 }

@@ -35,8 +35,28 @@
     <string name="request_amount_bought">Montant en dev. achat: </string>
     <string name="request_budget_estimated">Montant budgété: </string>
     <string name="request_budget_used">Montant déjà engagé: </string>
+    <!-- requestDetail -->
+    <string name="request_detail_total_price">Total ligne : </string>
+    <string name="request_detail_quantity">Quantité : </string>
+    <string name="request_detail_unitary_price"> - Montant : </string>
+    <string name="request_detail_data_price">%1$s EUR</string>
     <!--    section    -->
     <string name="section_attachement"> Pièces jointes (%1$d)</string>
     <string name="section_notes">Notes (%1$d)</string>
     <string name="section_detail">Détail</string>
+    <string name="section_texte">Texte</string>
+
+
+
+    <!--    modification    -->
+    <string name="modification_before">Avant </string>
+    <string name="modification_now">Maintenant </string>
+    <!--    validation    -->
+    <string name="validation_validate">Vous allez accepter la demande</string>
+    <string name="validation_question">Vous avez besoin d\'informations concernant la demande</string>
+    <string name="validation_refuse">Vous allez refuser la demande</string>
+    <string name="validation_comment_title">Vous pouvez commenter votre choix: </string>
+    <string name="validation_button_validation">Valider</string>
+
+    <string name="update_validator_success">Modification acceptée</string>
 </resources>

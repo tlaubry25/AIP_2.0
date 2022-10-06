@@ -32,7 +32,7 @@
             android:name=".presentation.ListRequestActivity"
             android:exported="true"/>
         <activity
-            android:name=".presentation.RequestDetailActivity"
+            android:name=".presentation.RequestActivity"
             android:exported="true"/>
 
         <activity
@@ -47,7 +47,15 @@
         <activity
             android:name=".presentation.ValidationRequestActivity"
             android:exported="true"/>
-
+        <activity
+            android:name=".presentation.DocumentViewerActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".presentation.RequestDetailActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".presentation.RequestTextActivity"
+            android:exported="true"/>
     </application>
 
 </manifest>

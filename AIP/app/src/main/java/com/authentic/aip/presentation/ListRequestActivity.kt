@@ -3,7 +3,6 @@ package com.authentic.aip.presentation
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,12 +21,13 @@ class ListRequestActivity : AppCompatActivity(), RequestListAdapter.ItemClickLis
     private val listRequestViewModel: ListRequestViewModel by viewModels()
     private lateinit var adapter : RequestListAdapter
     private var pageNumber = 1
+    private var typeView : String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.requests_list)
         this.supportActionBar?.hide()
         val intent = intent
-        val typeView = intent.getStringExtra("typeRequest")
+        typeView = intent.getStringExtra("typeRequest")
         loadRequests()
         val rv_listRequest = findViewById<RecyclerView>(R.id.rv_request_list)
         rv_listRequest.layoutManager = LinearLayoutManager(this)
@@ -74,11 +74,17 @@ class ListRequestActivity : AppCompatActivity(), RequestListAdapter.ItemClickLis
 
     private fun loadRequests(){
         val sessionId = App.prefs?.preferences?.getString(EnumClass.PreferencesEnum.SESSION_ID.toString(), null)
-        if (sessionId != null) {
-            listRequestViewModel.listRequest(sessionId, '0', false, pageNumber)
+
+        if (sessionId != null && typeView!=null) {
+            if(typeView == EnumClass.TypeRequestEnum.ONGOING.toString()){
+                listRequestViewModel.listRequest(sessionId, 'A', false, pageNumber)
+            }else{
+                listRequestViewModel.listRequest(sessionId, 'V', true, pageNumber)
+            }
+            //listRequestViewModel.listRequest(sessionId, '0', false, pageNumber)
         }
     }
-    fun callPagination(){
+    private fun callPagination(){
         pageNumber++
         loadRequests()
     }
@@ -90,7 +96,7 @@ class ListRequestActivity : AppCompatActivity(), RequestListAdapter.ItemClickLis
             uidEditor?.putString(EnumClass.PreferencesEnum.REQUEST_ID.toString(), request.cddeid)
             uidEditor?.commit()
 
-            val newActivityIntent = Intent(this, RequestDetailActivity::class.java)
+            val newActivityIntent = Intent(this, RequestActivity::class.java)
             newActivityIntent.putExtra("requestId", request.cddeid)
             startActivity(newActivityIntent)
         }

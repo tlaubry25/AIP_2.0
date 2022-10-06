@@ -21,14 +21,18 @@ class ListAttachmentsActivity:AppCompatActivity(), ListAttachmentsAdapter.ItemCl
     private val listAttachmentsViewModel: ListAttachmentsViewModel by viewModels()
     private lateinit var adapter : ListAttachmentsAdapter
     private var pageNumber = 1
+    var deli : Int?=0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.attachments_list)
+        val intent = intent
+        deli = intent.getIntExtra("deli", 0)
         loadAttachments()
 
-        val rv_listRequest = findViewById<RecyclerView>(R.id.rv_attachments_list)
-        rv_listRequest.layoutManager = GridLayoutManager(this, 2)
+        val rv_listAttachments = findViewById<RecyclerView>(R.id.rv_attachments_list)
+        rv_listAttachments.layoutManager = GridLayoutManager(this, 2)
         adapter = ListAttachmentsAdapter(this, listOf(), this)
+        rv_listAttachments.adapter = adapter
 
         listAttachmentsViewModel.listAttachmentsLiveData.observe(this){
             when{
@@ -42,6 +46,15 @@ class ListAttachmentsActivity:AppCompatActivity(), ListAttachmentsAdapter.ItemCl
                 }
             }
         }
+
+        rv_listAttachments.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if(!recyclerView.canScrollVertically(1)){
+                    callPagination()
+                }
+            }
+        })
     }
     private fun initview(listAttachments : ListAttachments){
         var listAttachmentsToFill : MutableList<Attachments> = mutableListOf()
@@ -55,16 +68,26 @@ class ListAttachmentsActivity:AppCompatActivity(), ListAttachmentsAdapter.ItemCl
             adapter.setAttachmentsList(listAttachmentsToFill)
             adapter.notifyDataSetChanged()
     }
+    private fun callPagination(){
+        pageNumber++
+        loadAttachments()
+    }
 
     private fun loadAttachments(){
         val sessionId = App.prefs?.preferences?.getString(EnumClass.PreferencesEnum.SESSION_ID.toString(), null)
         val requestId = App.prefs?.preferences?.getString(EnumClass.PreferencesEnum.REQUEST_ID.toString(), null)
         if (sessionId != null && requestId != null) {
-            listAttachmentsViewModel.listAttachments(sessionId, requestId, 0, pageNumber)
+            if(deli!=null){
+                listAttachmentsViewModel.listAttachments(sessionId, requestId, deli!!, pageNumber)
+            }else{
+                listAttachmentsViewModel.listAttachments(sessionId, requestId, 0, pageNumber)
+            }
+
         }
     }
     override fun onAttachmentClick(attachment: Attachments?) {
         if(attachment!=null){
+
             /*val newActivityIntent = Intent(this, AttachmentActivity::class.java)
             startActivity(newActivityIntent)*/
         }

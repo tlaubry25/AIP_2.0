@@ -18,7 +18,7 @@ class NotesListViewModel @Inject constructor(
     private val _notesListData = MutableLiveData<NotesListState>()
     val notesListLiveData : LiveData<NotesListState> = _notesListData
 
-    fun requestDetail(uid: String, cddeid: String, deli: Int, numPg: Int){
+    fun notesList(uid: String, cddeid: String, deli: Int, numPg: Int){
         notesListInteractor(uid, cddeid, deli, numPg).onEach { result->
             when(result){
                 is Resource.Error ->{

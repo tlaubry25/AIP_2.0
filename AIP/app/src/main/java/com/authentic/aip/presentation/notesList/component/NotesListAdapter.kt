@@ -8,18 +8,22 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.authentic.aip.R
 import com.authentic.aip.domain.model.Notes
+import com.authentic.aip.domain.model.POs
 import java.text.SimpleDateFormat
 
 class NotesListAdapter : RecyclerView.Adapter<NotesListAdapter.MyViewHolder>{
     private var context: Context? = null
     private var notesList: List<Notes>? = null
 
-    constructor(contextInput: Context, requestListInput:List<Notes>){
+    constructor(contextInput: Context, notesListInput:List<Notes>){
         context = contextInput
-        notesList = requestListInput
+        notesList = notesListInput
     }
-    fun setNotesList(listRequest : List<Notes>){
-        notesList = listRequest
+    fun setNotesList(listNotes : List<Notes>){
+        var mutableNotesList : MutableList<Notes> = mutableListOf()
+        notesList?.let { mutableNotesList.addAll(it) }
+        listNotes.let { mutableNotesList.addAll(it) }
+        notesList = mutableNotesList
         notifyDataSetChanged()
     }
 

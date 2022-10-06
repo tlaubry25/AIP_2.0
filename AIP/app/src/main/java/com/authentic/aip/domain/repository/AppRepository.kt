@@ -1,31 +1,36 @@
 package com.authentic.aip.domain.repository
 
+import com.authentic.aip.data.remote.dto.genericResponse.GenericResponseDto
 import com.authentic.aip.data.remote.dto.listAttachments.ListAttachmentsResponseDto
 import com.authentic.aip.data.remote.dto.listRequest.ListRequestResponseDto
 import com.authentic.aip.data.remote.dto.nbRequest.GetNbRequestResponseDto
 import com.authentic.aip.data.remote.dto.login.LoginResponseDto
 import com.authentic.aip.data.remote.dto.notesList.NotesListResponseDto
+import com.authentic.aip.data.remote.dto.request.RequestResponseDto
 import com.authentic.aip.data.remote.dto.requestDetail.RequestDetailResponseDto
+import com.authentic.aip.data.remote.dto.requestGetText.RequestGetTextResponseDto
+import com.authentic.aip.data.remote.dto.validatorList.ValidatorListResponseDto
+import retrofit2.http.POST
+import retrofit2.http.PUT
+import retrofit2.http.Query
 
 interface AppRepository {
 
     suspend fun getLogin(login:String, password : String): LoginResponseDto
     suspend fun getNbRequest(uid:String, orderType : Char, histo:Boolean?): GetNbRequestResponseDto
     suspend fun listRequests(uid : String, orderType : Char, histo:Boolean, numPg:Int): ListRequestResponseDto
-    suspend fun viewRequestHead(uid : String, cddeid : String, orderType:Char?): RequestDetailResponseDto
-
-/*    suspend fun validateRequest(uid : String, cddeid : String, deli:Int, orderType:Char, comment:String): Any
-    suspend fun denyRequest(uid : String, cddeid : String, deli:Int, orderType:Char, comment:String): Any
-    suspend fun explainRequest(uid : String, cddeid : String, deli:Int, orderType:Char, comment:String): Any*/
-
+    suspend fun viewRequestHead(uid : String, cddeid : String, orderType:Char?): RequestResponseDto
     suspend fun listNotes(uid : String, cddeid : String, deli:Int, numPg:Int): NotesListResponseDto
-    /*suspend fun getText(uid : String, cddeid : String, deli:Int): Any*/
-
+    suspend fun getText(uid : String, cddeid : String, deli:Int): RequestGetTextResponseDto
+    suspend fun listRequestLines(uid : String, cddeid : String, orderType:Char, originalOrder: Boolean?, numPg:Int): RequestDetailResponseDto
     suspend fun listAttachements(uid : String, cddeid : String, deli:Int, numPg:Int): ListAttachmentsResponseDto
-    /*
-    suspend fun getAttachement(uid : Long, cddeid : String, deli:Int?, doct:String, docName:String): Any
+    suspend fun listValidators(uid : String, cddeid : String?, numPg:Int): ValidatorListResponseDto
 
-    suspend fun listValidators(uid : String, cddeid : String?, numPg:Int): Any
-    suspend fun updateValidator(uid : Long, cddeid : String, deli:Int, valr:String, comment:String): Any*/
+    suspend fun validateRequest(uid : String, cddeid : String, deli:Int, orderType:Char, comment:String): GenericResponseDto
+    suspend fun denyRequest(uid : String, cddeid : String, deli:Int, orderType:Char, comment:String): GenericResponseDto
+    suspend fun explainRequest(uid : String, cddeid : String, deli:Int, orderType:Char, comment:String): GenericResponseDto
+    suspend fun updateValidator(uid : String, cddeid : String, deli:Int, valr:String, comment:String): GenericResponseDto
+
+    suspend fun getAttachement(uid : String, cddeid : String, deli:Int?, doct:String, docName:String): Any
 
 }

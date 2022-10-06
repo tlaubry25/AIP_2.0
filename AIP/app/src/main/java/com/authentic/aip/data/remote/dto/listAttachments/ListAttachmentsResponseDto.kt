@@ -1,15 +1,15 @@
 package com.authentic.aip.data.remote.dto.listAttachments
 
 
-import com.authentic.aip.data.remote.dto.FormErrors
-import com.authentic.aip.data.remote.dto.Status
+import com.authentic.aip.data.remote.dto.FormErrorsDto
+import com.authentic.aip.data.remote.dto.StatusDto
 import com.google.gson.annotations.SerializedName
 
 data class ListAttachmentsResponseDto(
     @SerializedName("data")
     val `data`: ListAttachmentsDto,
     @SerializedName("form_errors")
-    val formErrors: FormErrors,
+    val formErrorsDto: FormErrorsDto,
     @SerializedName("status")
-    val status: Status
+    val statusDto: StatusDto
 )

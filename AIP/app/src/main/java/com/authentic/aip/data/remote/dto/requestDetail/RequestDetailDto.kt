@@ -1,56 +1,27 @@
 package com.authentic.aip.data.remote.dto.requestDetail
 
-
+import com.authentic.aip.data.remote.dto.PageDataDto
+    import com.authentic.aip.data.remote.dto.toPageData
+import com.authentic.aip.domain.model.DedLine
 import com.authentic.aip.domain.model.RequestDetail
 import com.google.gson.annotations.SerializedName
 
 data class RequestDetailDto(
-    @SerializedName("bfidName")
-    val bfidName: String,
-    @SerializedName("budgAmtLoc")
-    val budgAmtLoc: Double,
-    @SerializedName("coce")
-    val coce: String,
-    @SerializedName("dedAmtLoc")
-    val dedAmtLoc: Double,
-    @SerializedName("dedAmtPur")
-    val dedAmtPur: Double,
-    @SerializedName("dwdt")
-    val dwdt: Int,
-    @SerializedName("engaAmtLoc")
-    val engaAmtLoc: Double,
-    @SerializedName("faci")
-    val faci: String,
-    @SerializedName("locCur")
-    val locCur: String,
-    @SerializedName("nbDocs")
-    val nbDocs: Int,
-    @SerializedName("nbNotes")
-    val nbNotes: Int,
-    @SerializedName("objt")
-    val objt: String,
-    @SerializedName("proj")
-    val proj: String,
-    @SerializedName("purCur")
-    val purCur: String,
-    @SerializedName("sunm")
-    val sunm: String
+    @SerializedName("listDedLine")
+    val listDedLine: List<DedLineDto?>?,
+    @SerializedName("pageData")
+    val pageData: PageDataDto?
 )
+fun RequestDetailDto.toRequestDetail(): RequestDetail {
+    val listDed : MutableList<DedLine> = mutableListOf()
+    if(!listDedLine.isNullOrEmpty()){
+        for(ded in listDedLine){
+            val dedConverted = ded?.toDedLine()
+            if(dedConverted!=null){
+                listDed.add(dedConverted)
+            }
+        }
+    }
 
-fun RequestDetailDto.toRequestDetail() = RequestDetail(
-    bfidName = bfidName,
-    budgAmtLoc = budgAmtLoc,
-    coce = coce,
-    dedAmtLoc = dedAmtLoc,
-    dedAmtPur = dedAmtPur,
-    dwdt = dwdt,
-    engaAmtLoc = engaAmtLoc,
-    faci = faci,
-    locCur = locCur,
-    nbDocs = nbDocs,
-    nbNotes = nbNotes,
-    objt = objt,
-    proj = proj,
-    purCur = purCur,
-    sunm = sunm
-)
+    return RequestDetail(listDedLine = listDed, pageData = pageData?.toPageData())
+}

@@ -12,6 +12,7 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Qualifier
 import javax.inject.Singleton
 
 @Module
@@ -20,23 +21,26 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideAipAPi():AipApi = Retrofit.Builder()
+    fun provideAipAPi(@AipOkHttpClient okHttpClient: OkHttpClient): AipApi = Retrofit.Builder()
         .baseUrl(BASE_URL)
-        .client(createOkhttpClient())
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(CoroutineCallAdapterFactory())
+        .client(okHttpClient)
         .build()
         .create(AipApi::class.java)
 
-    private fun createOkhttpClient():OkHttpClient{
-        val okHttpClient = OkHttpClient().newBuilder()
-            .addInterceptor(AddCookieInterceptor())
-            .addInterceptor(ReceivedCookieInterceptor())
-            .build()
-        return okHttpClient
-    }
+    @AipOkHttpClient
+    @Provides
+    fun provideGlobalInterceptorOkHttpClient(): OkHttpClient = OkHttpClient.Builder()
+        .addInterceptor(AddCookieInterceptor())
+        .addInterceptor(ReceivedCookieInterceptor())
+        .build()
 
     @Provides
     @Singleton
-    fun provideAppRepository(api: AipApi):AppRepository = AppRepositoryImpl(appApi = api)
+    fun provideAppRepository(api: AipApi): AppRepository = AppRepositoryImpl(appApi = api)
 }
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class AipOkHttpClient

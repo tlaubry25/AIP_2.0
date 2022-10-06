@@ -14,19 +14,19 @@ import javax.inject.Inject
 @HiltViewModel
 class RequestDetailViewModel @Inject constructor(
     private val requestDetailInteractor : RequestDetailInteractor
-):ViewModel(){
+): ViewModel(){
     private val _requestDetailData = MutableLiveData<RequestDetailState>()
     val requestDetailLiveData : LiveData<RequestDetailState> = _requestDetailData
 
-    fun requestDetail(uid: String, cddeid: String, orderType: Char?){
-        requestDetailInteractor(uid, cddeid, orderType).onEach { result->
+    fun requestDetail(uid: String, cddeid: String, orderType: Char, originalOrder: Boolean?, numPg: Int){
+        requestDetailInteractor(uid, cddeid, orderType, originalOrder, numPg).onEach { result->
             when(result){
                 is Resource.Error ->{
                     _requestDetailData.value = RequestDetailState(error = result.message?:"ErrorWebservice") }
                 is Resource.Loading ->{
                     _requestDetailData.value = RequestDetailState(isLoading = true)  }
                 is Resource.Success ->{
-                    _requestDetailData.value = RequestDetailState(requestData = result.data) }
+                    _requestDetailData.value = RequestDetailState(requestDetailData = result.data) }
             }
         }.launchIn(viewModelScope)
     }

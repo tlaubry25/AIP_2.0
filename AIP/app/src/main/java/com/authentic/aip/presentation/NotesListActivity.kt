@@ -22,20 +22,20 @@ import dagger.hilt.android.AndroidEntryPoint
 class NotesListActivity:AppCompatActivity() {
     private val notesListViewModel: NotesListViewModel by viewModels()
     private lateinit var adapter : NotesListAdapter
+    private var pageNumber = 1
+    var deli : Int?=0
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
         setContentView(R.layout.notes_list)
-        val sessionId = App.prefs?.preferences?.getString(EnumClass.PreferencesEnum.SESSION_ID.toString(), null)
-        val requestId = App.prefs?.preferences?.getString(EnumClass.PreferencesEnum.REQUEST_ID.toString(), null)
-        if (sessionId != null && requestId != null) {
-            notesListViewModel.requestDetail(sessionId, requestId, 0, 1)
-        }
+        val intent = intent
+        deli = intent.getIntExtra("deli", 0)
+        loadRequests()
+
         val rv_notesList = findViewById<RecyclerView>(R.id.rv_notes_list)
         rv_notesList.layoutManager = LinearLayoutManager(this)
         adapter = NotesListAdapter(this, listOf())
         rv_notesList.adapter = adapter
-        rv_notesList.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.HORIZONTAL))
+        rv_notesList.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))
 
         notesListViewModel.notesListLiveData.observe(this){
             when{
@@ -51,6 +51,15 @@ class NotesListActivity:AppCompatActivity() {
                 }
             }
         }
+
+        rv_notesList.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if(!recyclerView.canScrollVertically(1)){
+                    callPagination()
+                }
+            }
+        })
     }
 
     fun initview(listNotes : NotesList){
@@ -64,5 +73,22 @@ class NotesListActivity:AppCompatActivity() {
         }
         adapter.setNotesList(listNotesToFill)
         adapter.notifyDataSetChanged()
+    }
+    private fun loadRequests(){
+        val sessionId = App.prefs?.preferences?.getString(EnumClass.PreferencesEnum.SESSION_ID.toString(), null)
+        val requestId = App.prefs?.preferences?.getString(EnumClass.PreferencesEnum.REQUEST_ID.toString(), null)
+        if (sessionId != null && requestId != null) {
+            if(deli!=null){
+                notesListViewModel.notesList(sessionId, requestId, deli!!, pageNumber)
+            }else{
+                notesListViewModel.notesList(sessionId, requestId, 0, pageNumber)
+            }
+
+        }
+    }
+
+    private fun callPagination(){
+        pageNumber++
+        loadRequests()
     }
 }

@@ -15,34 +15,33 @@ import com.authentic.aip.domain.model.Attachments
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 
-class ListAttachmentsAdapter : RecyclerView.Adapter<ListAttachmentsAdapter.MyViewHolder>{
+class ListAttachmentsAdapter : RecyclerView.Adapter<ListAttachmentsAdapter.AttachmentHolder>{
     private var context: Context? = null
     private var attachmentsList: List<Attachments>? = null
     private var clickListener: ItemClickListener? = null
 
-    constructor(contextInput: Context, requestListInput:List<Attachments>, clickListenerInput : ItemClickListener){
+    constructor(contextInput: Context, attachmentsListInput:List<Attachments>, clickListenerInput : ItemClickListener){
         context = contextInput
-        attachmentsList = requestListInput
+        attachmentsList = attachmentsListInput
         clickListener = clickListenerInput
     }
     fun setAttachmentsList(listRequest : List<Attachments>){
-        var mutableRequestList : MutableList<Attachments> = mutableListOf()
-        attachmentsList?.let { mutableRequestList.addAll(it) }
-        listRequest?.let { mutableRequestList.addAll(it) }
-        attachmentsList = mutableRequestList
+        var mutableAttachmentsList : MutableList<Attachments> = mutableListOf()
+        attachmentsList?.let { mutableAttachmentsList.addAll(it) }
+        listRequest.let { mutableAttachmentsList.addAll(it) }
+        attachmentsList = mutableAttachmentsList
         notifyDataSetChanged()
     }
 
 
-    class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class AttachmentHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var tvTitle: TextView
         var ivAttachments: ImageView
 
 
         init {
-            tvTitle = itemView.findViewById<View>(R.id.tv_request_title) as TextView
-            ivAttachments = itemView.findViewById<View>(R.id.iv_status) as ImageView
-
+            tvTitle = itemView.findViewById<View>(R.id.tv_attachment_title) as TextView
+            ivAttachments = itemView.findViewById<View>(R.id.iv_attachment) as ImageView
         }
     }
 
@@ -50,14 +49,14 @@ class ListAttachmentsAdapter : RecyclerView.Adapter<ListAttachmentsAdapter.MyVie
         fun onAttachmentClick(attachment: Attachments?)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AttachmentHolder {
         val view: View = LayoutInflater.from(context).inflate(R.layout.attachment_item, parent, false)
-        return MyViewHolder(view)
+        return AttachmentHolder(view)
     }
 
-    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: AttachmentHolder, position: Int) {
         holder.tvTitle.setText(this.attachmentsList?.get(position)?.docName)
-        var drawableTypeAttachments : Drawable? = null
+        var drawableTypeAttachments: Drawable?
         when(this.attachmentsList?.get(position)?.type){
             EnumClass.TypeAttachmentEnum.PDF.toString()->{
                 drawableTypeAttachments = ContextCompat.getDrawable(context!!, R.drawable.pdf)
@@ -74,9 +73,11 @@ class ListAttachmentsAdapter : RecyclerView.Adapter<ListAttachmentsAdapter.MyVie
             EnumClass.TypeAttachmentEnum.TXT.toString()->{
                 drawableTypeAttachments = ContextCompat.getDrawable(context!!, R.drawable.txt)
             }
+            else->{
+                drawableTypeAttachments = ContextCompat.getDrawable(context!!, R.drawable.unknown)
+            }
 
         }
-
         holder.itemView.setOnClickListener { clickListener?.onAttachmentClick(attachmentsList?.get(position)) }
         if(drawableTypeAttachments!=null){
             Glide.with(context!!)

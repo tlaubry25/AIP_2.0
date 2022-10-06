@@ -5,5 +5,6 @@ import com.authentic.aip.domain.model.RequestDetail
 class RequestDetailState(
     val isLoading : Boolean = false,
     val error : String = "",
-    val requestData : RequestDetail? = null
-)
+    val requestDetailData : RequestDetail? = null
+) {
+}

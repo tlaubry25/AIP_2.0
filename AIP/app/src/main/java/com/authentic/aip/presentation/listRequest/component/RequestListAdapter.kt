@@ -28,7 +28,7 @@ class RequestListAdapter : RecyclerView.Adapter<RequestListAdapter.MyViewHolder>
     fun setRequestList(listRequest : List<POs>){
         var mutableRequestList : MutableList<POs> = mutableListOf()
         requestList?.let { mutableRequestList.addAll(it) }
-        listRequest?.let { mutableRequestList.addAll(it) }
+        listRequest.let { mutableRequestList.addAll(it) }
         requestList = mutableRequestList
         notifyDataSetChanged()
     }

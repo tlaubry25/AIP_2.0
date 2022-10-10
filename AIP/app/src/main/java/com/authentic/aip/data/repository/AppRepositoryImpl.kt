@@ -24,7 +24,7 @@ class AppRepositoryImpl @Inject constructor(private var appApi : AipApi):AppRepo
         return appApi.getNbRequest(uid, orderType, histo)
     }
 
-    override suspend fun listRequests(uid: String, orderType: Char, histo: Boolean, numPg: Int): ListRequestResponseDto {
+    override suspend fun listRequests(uid: String, orderType: Char, histo: Int, numPg: Int): ListRequestResponseDto {
         return appApi.listRequests(uid, orderType, histo, numPg)
     }
 

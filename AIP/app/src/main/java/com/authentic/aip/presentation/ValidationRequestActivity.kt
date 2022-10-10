@@ -1,5 +1,6 @@
 package com.authentic.aip.presentation
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -21,6 +22,14 @@ class ValidationRequestActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.validation_request)
+        this.supportActionBar?.hide()
+        ToolbarManager.setBackpress(this)
+        val toolbarStatus = App.prefs?.preferences?.getString(EnumClass.PreferencesEnum.REQUEST_STATUS_CODE.toString(), null)
+        ToolbarManager.setDrawableByCodeStatus(this, toolbarStatus)
+        val toolbarTitle = App.prefs?.preferences?.getString(EnumClass.PreferencesEnum.REQUEST_TITLE.toString(), null)
+        if(toolbarTitle!=null){
+            ToolbarManager.setTitleText(this, toolbarTitle)
+        }
         val intent = intent
         val actionType = intent.getStringExtra("actionType")
         val sessionId = App.prefs?.preferences?.getString(EnumClass.PreferencesEnum.SESSION_ID.toString(), null)
@@ -51,6 +60,7 @@ class ValidationRequestActivity : AppCompatActivity() {
         tvTitle.text = titleText
         //"orderType": "Mauvais type : A (approbation), V (validation), 0 (tous) uniquement"
         bt_validation.setOnClickListener {
+
             when(choiceValidation){
                 EnumClass.ActionValidationEnum.VALID->{
                     if(sessionId!=null && cddeid!=null)
@@ -76,9 +86,16 @@ class ValidationRequestActivity : AppCompatActivity() {
                 it.error.isNotEmpty() -> {
                     Log.d("TLA", "STATE ERROR")
                 }
-                it.data==null ->{
+                it.data!=null ->{
                     Log.d("TLA", "STATE SUCCESS")
                     //WEBSERVICE SUCCESS, GOTO LISTREQUEST
+                }
+                else->{
+                    Log.d("TLA", "STATE ELSE")
+                    //GOTO LISTREQUEST
+                    val newActivityIntent = Intent(this, ListRequestActivity::class.java)
+                    newActivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                    startActivity(newActivityIntent)
                 }
             }
         }
@@ -90,8 +107,14 @@ class ValidationRequestActivity : AppCompatActivity() {
                 it.error.isNotEmpty() -> {
                     Log.d("TLA", "STATE ERROR")
                 }
-                it.data==null ->{
+                it.data!=null ->{
                     //WEBSERVICE SUCCESS, GOTO LISTREQUEST
+                }
+                else->{
+                    //GOTO LISTREQUEST
+                    val newActivityIntent = Intent(this, ListRequestActivity::class.java)
+                    newActivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                    startActivity(newActivityIntent)
                 }
             }
         }
@@ -104,8 +127,14 @@ class ValidationRequestActivity : AppCompatActivity() {
                 it.error.isNotEmpty() -> {
                     Log.d("TLA", "STATE ERROR")
                 }
-                it.data==null ->{
+                it.data!=null ->{
                     //WEBSERVICE SUCCESS, GOTO LISTREQUEST
+                }
+                else->{
+                    //GOTO LISTREQUEST
+                    val newActivityIntent = Intent(this, ListRequestActivity::class.java)
+                    newActivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                    startActivity(newActivityIntent)
                 }
             }
         }

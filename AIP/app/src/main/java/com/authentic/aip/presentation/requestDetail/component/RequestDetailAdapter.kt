@@ -46,6 +46,30 @@ class RequestDetailAdapter : RecyclerView.Adapter<RequestDetailAdapter.Attachmen
             tvNbAttachments = itemView.findViewById<View>(R.id.tv_section_attachement) as TextView
             tvText = itemView.findViewById(R.id.tv_section_texte)
         }
+        fun bind(dedline : DedLine){
+            /*        if(this.dedLineList?.get(position)?.nbNotes!=null){
+            holder.tvNbNotes.isClickable = this.dedLineList?.get(position)?.nbNotes!! >0
+        }
+        if(this.dedLineList?.get(position)?.nbDocs!=null){
+            holder.tvNbAttachments.isClickable = this.dedLineList?.get(position)?.nbDocs!! >0
+        }
+        if(this.dedLineList?.get(position)?.nbDocs!=null){
+            holder.tvNbAttachments.isClickable = this.dedLineList?.get(position)?.existText!!
+        }*/
+
+/*            tvNbNotes.setOnClickListener {
+                if(tvNbNotes.isClickable) clickListener?.onNotesClick(dedline)
+            }
+
+            tvNbAttachments.setOnClickListener {
+                if(tvNbAttachments.isClickable) clickListener?.onAttachmentClick(dedline)
+            }
+
+            tvText.setOnClickListener {
+                if(tvText.isClickable) clickListener?.onTextClick(dedline)
+            }*/
+        }
+
     }
     interface ItemClickListener {
         fun onNotesClick(dedLine: DedLine?)
@@ -67,27 +91,35 @@ class RequestDetailAdapter : RecyclerView.Adapter<RequestDetailAdapter.Attachmen
         holder.tvNbNotes.text = context?.getString(R.string.section_notes, this.dedLineList?.get(position)?.nbNotes)
         holder.tvNbAttachments.text = context?.getString(R.string.section_attachement, this.dedLineList?.get(position)?.nbDocs)
 
-/*        if(this.dedLineList?.get(position)?.nbNotes!=null){
-            holder.tvNbNotes.isClickable = this.dedLineList?.get(position)?.nbNotes!! >0
+        if(this.dedLineList?.get(position)?.nbNotes!=null){
+            if(this.dedLineList?.get(position)?.nbNotes!! >0){
+                holder.tvNbNotes.setOnClickListener {
+                    clickListener?.onNotesClick(this.dedLineList?.get(position))
+                }
+            }else{
+                holder.tvNbNotes.isClickable = false
+                holder.tvNbNotes.setTextColor(context!!.getColor(R.color.grey))
+            }
         }
         if(this.dedLineList?.get(position)?.nbDocs!=null){
-            holder.tvNbAttachments.isClickable = this.dedLineList?.get(position)?.nbDocs!! >0
+            if(this.dedLineList?.get(position)?.nbDocs!! >0){
+                holder.tvNbAttachments.setOnClickListener {
+                    clickListener?.onAttachmentClick(this.dedLineList?.get(position))
+                }
+            }else{
+                holder.tvNbAttachments.setTextColor(context!!.getColor(R.color.grey))
+                holder.tvNbAttachments.isClickable = false
+            }
         }
-        if(this.dedLineList?.get(position)?.nbDocs!=null){
-            holder.tvNbAttachments.isClickable = this.dedLineList?.get(position)?.existText!!
-        }*/
+        if(this.dedLineList?.get(position)?.existText == true){
+            holder.tvText.setOnClickListener {
+                clickListener?.onTextClick(this.dedLineList?.get(position))
+            }
+        }else{
+            holder.tvText.setTextColor(context!!.getColor(R.color.grey))
+            holder.tvText.isClickable = false
+        }
 
-        holder.tvNbNotes.setOnClickListener {
-            if(holder.tvNbNotes.isClickable) clickListener?.onNotesClick(this.dedLineList?.get(position))
-        }
-
-        holder.tvNbAttachments.setOnClickListener {
-            if(holder.tvNbAttachments.isClickable) clickListener?.onAttachmentClick(this.dedLineList?.get(position))
-        }
-
-        holder.tvText.setOnClickListener {
-            if(holder.tvText.isClickable) clickListener?.onTextClick(this.dedLineList?.get(position))
-        }
     }
 
     override fun getItemCount(): Int {

@@ -1,5 +1,6 @@
 package com.authentic.aip.domain.interactor
 
+import android.util.Log
 import com.authentic.aip.common.Resource
 import com.authentic.aip.domain.repository.AppRepository
 import kotlinx.coroutines.flow.Flow
@@ -13,8 +14,10 @@ class ValidateRequestInteractor @Inject constructor(
 ){
     operator fun invoke(uid : String, cddeid : String, deli:Int, orderType:Char, comment:String): Flow<Resource<Any>> = flow {
         try {
+
             emit(Resource.Loading<Any>())
             val any = repository.validateRequest(uid =  uid, cddeid = cddeid, deli = deli, orderType = orderType, comment = comment).data
+            Log.d("TLA", ""+any)
             emit(Resource.Success<Any>(any))
         } catch (e: HttpException) {
             emit(Resource.Error<Any>(e.localizedMessage ?: "An unexpected error happened"))

@@ -25,6 +25,14 @@ class RequestDetailActivity:AppCompatActivity(), RequestDetailAdapter.ItemClickL
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.request_detail)
+        this.supportActionBar?.hide()
+        ToolbarManager.setBackpress(this)
+        val toolbarStatus = App.prefs?.preferences?.getString(EnumClass.PreferencesEnum.REQUEST_STATUS_CODE.toString(), null)
+        ToolbarManager.setDrawableByCodeStatus(this, toolbarStatus)
+        val toolbarTitle = App.prefs?.preferences?.getString(EnumClass.PreferencesEnum.REQUEST_TITLE.toString(), null)
+        if(toolbarTitle!=null){
+            ToolbarManager.setTitleText(this, toolbarTitle)
+        }
         loadDedlines()
 
         val rv_listDedline = findViewById<RecyclerView>(R.id.rv_request_detail)
@@ -85,32 +93,32 @@ class RequestDetailActivity:AppCompatActivity(), RequestDetailAdapter.ItemClickL
 
     override fun onNotesClick(dedLine: DedLine?) {
         if(dedLine!=null){
-            if(dedLine.nbNotes>0){
+            //if(dedLine.nbNotes>0){
                 val newActivityIntent = Intent(this, NotesListActivity::class.java)
                 newActivityIntent.putExtra("deli", dedLine.deli)
                 startActivity(newActivityIntent)
-            }
+            //}
         }
     }
 
     override fun onAttachmentClick(dedLine: DedLine?) {
         if(dedLine!=null){
-            if(dedLine.nbDocs>0){
+            //if(dedLine.nbDocs>0){
                 val newActivityIntent = Intent(this, ListAttachmentsActivity::class.java)
                 newActivityIntent.putExtra("deli", dedLine.deli)
                 startActivity(newActivityIntent)
-            }
+            //}
         }
     }
 
     override fun onTextClick(dedLine: DedLine?) {
         if(dedLine!=null){
-            if(dedLine.existText){
+            //(dedLine.existText){
                 val newActivityIntent = Intent(this, RequestTextActivity::class.java)
                 newActivityIntent.putExtra("deli", dedLine.deli)
                 newActivityIntent.putExtra("requestTextTitle", dedLine.itds)
                 startActivity(newActivityIntent)
-            }
+            //}
         }
     }
 }

@@ -51,13 +51,19 @@ class MenuActivity : AppCompatActivity(){
 
         clOnGoingRequest.setOnClickListener {
             val newActivityIntent = Intent(this, ListRequestActivity::class.java)
-            newActivityIntent.putExtra("typeRequest", EnumClass.TypeRequestEnum.ONGOING.toString())
+            val uidEditor = prefs?.preferences?.edit()
+            uidEditor?.putString(EnumClass.PreferencesEnum.REQUEST_TYPE.toString(), EnumClass.TypeRequestEnum.ONGOING.toString())
+            uidEditor?.commit()
+//            newActivityIntent.putExtra("typeRequest", EnumClass.TypeRequestEnum.ONGOING.toString())
             startActivity(newActivityIntent)
         }
 
         clHistoricalRequest.setOnClickListener {
             val newActivityIntent = Intent(this, ListRequestActivity::class.java)
-            newActivityIntent.putExtra("typeRequest", EnumClass.TypeRequestEnum.DONE.toString())
+            val uidEditor = prefs?.preferences?.edit()
+            uidEditor?.putString(EnumClass.PreferencesEnum.REQUEST_TYPE.toString(), EnumClass.TypeRequestEnum.DONE.toString())
+            uidEditor?.commit()
+//            newActivityIntent.putExtra("typeRequest", EnumClass.TypeRequestEnum.DONE.toString())
             startActivity(newActivityIntent)
         }
     }

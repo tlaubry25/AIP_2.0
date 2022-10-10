@@ -19,11 +19,13 @@ class RequestListAdapter : RecyclerView.Adapter<RequestListAdapter.MyViewHolder>
     private var context: Context? = null
     private var requestList: List<POs>? = null
     private var clickListener: ItemClickListener? = null
+    private var typeview : String?=null
 
-    constructor(contextInput: Context, requestListInput:List<POs>, clickListenerInput : ItemClickListener){
+    constructor(contextInput: Context, requestListInput:List<POs>, clickListenerInput : ItemClickListener, typeviewIntput :String?=EnumClass.TypeRequestEnum.ONGOING.toString()){
         context = contextInput
         requestList = requestListInput
         clickListener = clickListenerInput
+        typeview = typeviewIntput
     }
     fun setRequestList(listRequest : List<POs>){
         var mutableRequestList : MutableList<POs> = mutableListOf()
@@ -31,6 +33,7 @@ class RequestListAdapter : RecyclerView.Adapter<RequestListAdapter.MyViewHolder>
         listRequest.let { mutableRequestList.addAll(it) }
         requestList = mutableRequestList
         notifyDataSetChanged()
+
     }
 
 
@@ -64,32 +67,30 @@ class RequestListAdapter : RecyclerView.Adapter<RequestListAdapter.MyViewHolder>
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.tvTitle.setText(this.requestList?.get(position)?.objt)
         holder.tvRequester.setText(this.requestList?.get(position)?.rqstName)
-        holder.tvAmount.setText(this.requestList?.get(position)?.dedAmtLoc.toString())
+        holder.tvAmount.text = context?.getString(R.string.request_amount_text, this.requestList?.get(position)?.dedAmtLoc.toString())
         //TEST EN FONCTION DE L'AVANCEMENT POUR AFFICHER LE STATUT OU NON
         val idTexte : Int
         var showStatus = true
-        var drawableStatus : Drawable? = null
+
 
         when(this.requestList?.get(position)?.dest){
-            EnumClass.StatusRequestEnum.ANNULEE.statusCode.toString()->{
+            EnumClass.StatusRequestEnum.ANNULEE.statusCode->{
                 idTexte = R.string.request_status_canceled
             }
-            EnumClass.StatusRequestEnum.EN_COURS.statusCode.toString()->{
+            EnumClass.StatusRequestEnum.EN_COURS.statusCode->{
                 idTexte = R.string.request_status_ongoing
                 showStatus = false
             }
-            EnumClass.StatusRequestEnum.FERMEE.statusCode.toString()->{
+            EnumClass.StatusRequestEnum.FERMEE.statusCode->{
                 idTexte = R.string.request_status_closed
             }
-            EnumClass.StatusRequestEnum.VALIDE_COMPLET.statusCode.toString()->{
+            EnumClass.StatusRequestEnum.VALIDE_COMPLET.statusCode->{
                 idTexte = R.string.request_status_accepted_closed
-                drawableStatus = ContextCompat.getDrawable(context!!, R.drawable.approuved_black)
             }
-            EnumClass.StatusRequestEnum.VALIDEE.statusCode.toString()->{
+            EnumClass.StatusRequestEnum.VALIDEE.statusCode->{
                 idTexte = R.string.request_status_accepted
-                drawableStatus = ContextCompat.getDrawable(context!!, R.drawable.thumb)
             }
-            EnumClass.StatusRequestEnum.REFUSEE.statusCode.toString()->{
+            EnumClass.StatusRequestEnum.REFUSEE.statusCode->{
                 idTexte = R.string.request_status_denied
             }
             else->{
@@ -116,13 +117,39 @@ class RequestListAdapter : RecyclerView.Adapter<RequestListAdapter.MyViewHolder>
 
             }
         }
-
-        if(drawableUpdate==null){
+        val idIconDrawable : Int?
+        when(this.requestList?.get(position)?.dest){
+            EnumClass.StatusRequestEnum.EN_CREATION.statusCode,
+            EnumClass.StatusRequestEnum.EN_COURS_VALIDATION.statusCode,
+            EnumClass.StatusRequestEnum.DMOA_EN_CREATION.statusCode,
+            EnumClass.StatusRequestEnum.VALIDATION_EN_COURS.statusCode ->{
+                idIconDrawable = R.drawable.approuved_black
+            }
+            EnumClass.StatusRequestEnum.VALIDE_COMPLET.statusCode,
+            EnumClass.StatusRequestEnum.EN_COURS.statusCode,
+            EnumClass.StatusRequestEnum.APPROUVE_EN_ATTENTE.statusCode,
+            EnumClass.StatusRequestEnum.VALIDEE.statusCode,
+            EnumClass.StatusRequestEnum.COMPLETE_APPROB_REQUIS.statusCode,
+            EnumClass.StatusRequestEnum.EN_COURS_APPROB.statusCode->{
+                idIconDrawable = R.drawable.thumb
+            }
+            else->{idIconDrawable = null}
+        }
+        var drawableStatus : Drawable? = null
+        if(idIconDrawable==null){
             holder.iv_update.visibility = View.INVISIBLE
         }else{
             holder.iv_update.visibility = View.VISIBLE
+            drawableStatus = ContextCompat.getDrawable(context!!, idIconDrawable)
         }
-
+        when(typeview){
+            EnumClass.TypeRequestEnum.ONGOING.toString()->{
+                holder.tvStatus.visibility = View.GONE
+            }
+            else->{
+                holder.tvStatus.visibility = View.VISIBLE
+            }
+        }
         holder.tvStatus.setText(idTexte)
 
         holder.itemView.setOnClickListener { clickListener?.onRequestClick(requestList?.get(position)) }

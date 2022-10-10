@@ -13,7 +13,7 @@ import javax.inject.Inject
 class ListRequestInteractor @Inject constructor(
     private val repository: AppRepository
 ){
-    operator fun invoke(uid : String, orderType : Char, histo:Boolean, numPg:Int): Flow<Resource<ListRequest>> = flow {
+    operator fun invoke(uid : String, orderType : Char, histo:Int, numPg:Int): Flow<Resource<ListRequest>> = flow {
         try {
             emit(Resource.Loading<ListRequest>())
             val listRequest = repository.listRequests(uid = uid, orderType = orderType, histo = histo, numPg = numPg).data.toListRequest()

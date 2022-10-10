@@ -23,8 +23,19 @@ class RequestActivity:AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.request)
+        this.supportActionBar?.hide()
+        ToolbarManager.setBackpress(this)
+        val toolbarStatus = App.prefs?.preferences?.getString(EnumClass.PreferencesEnum.REQUEST_STATUS_CODE.toString(), null)
+        ToolbarManager.setDrawableByCodeStatus(this, toolbarStatus)
+        val toolbarTitle = App.prefs?.preferences?.getString(EnumClass.PreferencesEnum.REQUEST_TITLE.toString(), null)
+        if(toolbarTitle!=null){
+            ToolbarManager.setTitleText(this, toolbarTitle)
+        }
+
+
         val sessionId = App.prefs?.preferences?.getString(EnumClass.PreferencesEnum.SESSION_ID.toString(), null)
         val cddeid = App.prefs?.preferences?.getString(EnumClass.PreferencesEnum.REQUEST_ID.toString(), null)
+
         if(sessionId!=null && cddeid!=null){
             requestViewModel.request(sessionId, cddeid, '0')
         }
@@ -43,17 +54,19 @@ class RequestActivity:AppCompatActivity() {
             }
         }
 
+/*
         val notesTextview = findViewById<TextView>(R.id.tv_section_notes)
         notesTextview.setOnClickListener {
             val newActivityIntent = Intent(this, NotesListActivity::class.java)
             startActivity(newActivityIntent)
         }
+*/
 
-        val attachmentsTextview = findViewById<TextView>(R.id.tv_section_attachement)
+/*        val attachmentsTextview = findViewById<TextView>(R.id.tv_section_attachement)
         attachmentsTextview.setOnClickListener {
             val newActivityIntent = Intent(this, ListAttachmentsActivity::class.java)
             startActivity(newActivityIntent)
-        }
+        }*/
 
         val textTextview = findViewById<TextView>(R.id.tv_section_detail)
         textTextview.setOnClickListener {
@@ -121,10 +134,27 @@ class RequestActivity:AppCompatActivity() {
         tvBudgetUsed.text = request.engaAmtLoc.toString() + " EUR"
 
         val tvSectionAttachement = findViewById<TextView>(R.id.tv_section_attachement)
-        tvSectionAttachement.isClickable = request.nbDocs>0
+        if(request.nbDocs<=0){
+            tvSectionAttachement.isClickable = false
+            tvSectionAttachement.setTextColor(this.getColor(R.color.grey))
+        }else{
+            tvSectionAttachement.setOnClickListener {
+                val newActivityIntent = Intent(this, ListAttachmentsActivity::class.java)
+                startActivity(newActivityIntent)
+            }
+        }
         tvSectionAttachement.text = String.format(getString(R.string.section_attachement), request.nbDocs)
 
         val tvSectionNotes = findViewById<TextView>(R.id.tv_section_notes)
+        if(request.nbNotes<=0){
+            tvSectionNotes.isClickable = false
+            tvSectionNotes.setTextColor(this.getColor(R.color.grey))
+        }else{
+            tvSectionNotes.setOnClickListener {
+                val newActivityIntent = Intent(this, NotesListActivity::class.java)
+                startActivity(newActivityIntent)
+            }
+        }
         tvSectionNotes.text = String.format(getString(R.string.section_notes), request.nbNotes)
 
         val tvSectionDetail = findViewById<TextView>(R.id.tv_section_detail)

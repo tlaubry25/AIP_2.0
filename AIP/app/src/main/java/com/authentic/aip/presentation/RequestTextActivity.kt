@@ -20,6 +20,14 @@ class RequestTextActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.request_text)
+        this.supportActionBar?.hide()
+        ToolbarManager.setBackpress(this)
+        val toolbarStatus = App.prefs?.preferences?.getString(EnumClass.PreferencesEnum.REQUEST_STATUS_CODE.toString(), null)
+        ToolbarManager.setDrawableByCodeStatus(this, toolbarStatus)
+        val toolbarTitle = App.prefs?.preferences?.getString(EnumClass.PreferencesEnum.REQUEST_TITLE.toString(), null)
+        if(toolbarTitle!=null){
+            ToolbarManager.setTitleText(this, toolbarTitle)
+        }
         val intent = intent
         textTitle = intent.getStringExtra("requestTextTitle")
         deli = intent.getIntExtra("deli", 0)

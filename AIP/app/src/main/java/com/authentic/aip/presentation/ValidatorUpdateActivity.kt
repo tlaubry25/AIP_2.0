@@ -1,5 +1,6 @@
 package com.authentic.aip.presentation
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -28,6 +29,14 @@ class ValidatorUpdateActivity:AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.validator_modification)
+        this.supportActionBar?.hide()
+        ToolbarManager.setBackpress(this)
+        val toolbarStatus = App.prefs?.preferences?.getString(EnumClass.PreferencesEnum.REQUEST_STATUS_CODE.toString(), null)
+        ToolbarManager.setDrawableByCodeStatus(this, toolbarStatus)
+        val toolbarTitle = App.prefs?.preferences?.getString(EnumClass.PreferencesEnum.REQUEST_TITLE.toString(), null)
+        if(toolbarTitle!=null){
+            ToolbarManager.setTitleText(this, toolbarTitle)
+        }
         loadValidators()
         val spinnerList = findViewById<Spinner>(R.id.spinner_validators)
         arrayAdapter = ArrayAdapter<Validator>(this, android.R.layout.simple_dropdown_item_1line, arrayListOf())
@@ -59,9 +68,14 @@ class ValidatorUpdateActivity:AppCompatActivity() {
                         Log.d("TLA", "STATE LOADING") }
                     it.error.isNotEmpty() -> {
                         Log.d("TLA", "STATE ERROR") }
-                    it.data==null ->{
+                    it.data!=null ->{
                         Log.d("TLA", "STATE SUCCESS")
-                        //WEBSERVICE SUCCESS
+                    }
+                    else->{
+                        //GOTO LISTREQUEST
+                        val newActivityIntent = Intent(this, ListRequestActivity::class.java)
+                        newActivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                        startActivity(newActivityIntent)
                     }
                 }
             }

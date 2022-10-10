@@ -25,7 +25,7 @@ interface AipApi {
     suspend fun getNbRequest(@Query("uid")uid : String, @Query("orderType")orderType : Char, @Query("histo")histo:Boolean?): GetNbRequestResponseDto
 
     @GET("listRequests")
-    suspend fun listRequests(@Query("uid")uid : String, @Query("orderType")orderType : Char, @Query("histo")histo:Boolean, @Query("numPg")numPg:Int): ListRequestResponseDto
+    suspend fun listRequests(@Query("uid")uid : String, @Query("orderType")orderType : Char, @Query("histo")histo:Int, @Query("numPg")numPg:Int): ListRequestResponseDto
 
     @GET("viewRequestHead")
     suspend fun viewRequestHead(@Query("uid")uid : String, @Query("cddeid")cddeid : String, @Query("orderType")orderType:Char?): RequestResponseDto

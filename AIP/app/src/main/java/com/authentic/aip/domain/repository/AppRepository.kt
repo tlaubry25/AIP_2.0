@@ -18,7 +18,7 @@ interface AppRepository {
 
     suspend fun getLogin(login:String, password : String): LoginResponseDto
     suspend fun getNbRequest(uid:String, orderType : Char, histo:Boolean?): GetNbRequestResponseDto
-    suspend fun listRequests(uid : String, orderType : Char, histo:Boolean, numPg:Int): ListRequestResponseDto
+    suspend fun listRequests(uid : String, orderType : Char, histo:Int, numPg:Int): ListRequestResponseDto
     suspend fun viewRequestHead(uid : String, cddeid : String, orderType:Char?): RequestResponseDto
     suspend fun listNotes(uid : String, cddeid : String, deli:Int, numPg:Int): NotesListResponseDto
     suspend fun getText(uid : String, cddeid : String, deli:Int): RequestGetTextResponseDto

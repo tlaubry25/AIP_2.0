@@ -19,7 +19,7 @@ class ListRequestViewModel @Inject constructor(
     private val _listRequestData = MutableLiveData<ListRequestState>()
     val listRequestLiveData : LiveData<ListRequestState> = _listRequestData
 
-    fun listRequest(uid : String, orderType : Char, histo:Boolean, numPg:Int){
+    fun listRequest(uid : String, orderType : Char, histo:Int, numPg:Int){
         listRequestInteractor(uid, orderType, histo, numPg).onEach { result->
             when(result){
                 is Resource.Error ->{ _listRequestData.value = ListRequestState(error = "testError") }

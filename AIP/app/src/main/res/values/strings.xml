@@ -13,7 +13,7 @@
     <string name="menu_progress">éléments en cours</string>
     <string name="menu_historical">historique</string>
     <!--    requestList    -->
-    <string name="request_amount_text">%1$d €</string>
+    <string name="request_amount_text">%1$s €</string>
 
     <!--    request status   -->
     <string name="request_status_ongoing">En cours d\'approbation</string>
@@ -46,8 +46,13 @@
     <string name="section_detail">Détail</string>
     <string name="section_texte">Texte</string>
 
-
-
+    <!--    navigation    -->
+    <string name="navigation_historical">Historique </string>
+    <string name="navigation_ongoing">En cours </string>
+    <string name="navigation_original_request">Commande d\'origine </string>
+    <!--    toolbar    -->
+    <string name="toolbar_historical">Historique </string>
+    <string name="toolbar_ongoing">Elements en cours </string>
     <!--    modification    -->
     <string name="modification_before">Avant </string>
     <string name="modification_now">Maintenant </string>
@@ -59,4 +64,6 @@
     <string name="validation_button_validation">Valider</string>
 
     <string name="update_validator_success">Modification acceptée</string>
+
+
 </resources>

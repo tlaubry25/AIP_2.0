@@ -4,37 +4,61 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <TextView
-        android:id="@+id/tv_beneficiary"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginBottom="10dp"
-        android:text="@string/request_beneficiary"
+    <include
+        android:id="@+id/included_toolbar"
+        layout="@layout/custom_toolbar_request"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_beneficiary_data"
+<LinearLayout
+    android:id="@+id/ll_request"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:showDividers="middle"
+    android:orientation="vertical"
+    android:divider="@drawable/request_divider"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/included_toolbar">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        app:layout_constraintStart_toEndOf="@+id/tv_beneficiary"
-        app:layout_constraintTop_toTopOf="@+id/tv_beneficiary"
-        />
+        android:layout_marginVertical="10dp"
+        >
+
+        <TextView
+            android:id="@+id/tv_beneficiary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="@string/request_beneficiary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_beneficiary_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            app:layout_constraintStart_toEndOf="@+id/tv_beneficiary"
+            app:layout_constraintTop_toTopOf="@+id/tv_beneficiary"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="10dp">
 
     <TextView
         android:id="@+id/tv_center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
-        android:layout_marginVertical="@dimen/margin_detail"
         android:text="@string/request_center"
-        app:layout_constraintStart_toStartOf="@+id/tv_beneficiary"
-        app:layout_constraintTop_toBottomOf="@+id/tv_beneficiary" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_center_data"
@@ -45,34 +69,42 @@
         app:layout_constraintTop_toTopOf="@+id/tv_center"
         />
 
-    <TextView
-        android:id="@+id/tv_site"
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:layout_marginVertical="@dimen/margin_detail"
-        android:text="@string/request_site"
-        app:layout_constraintStart_toStartOf="@+id/tv_center"
-        app:layout_constraintTop_toBottomOf="@+id/tv_center" />
+        android:layout_marginVertical="10dp">
+        <TextView
+            android:id="@+id/tv_site"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="@string/request_site"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_site_data"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        app:layout_constraintStart_toEndOf="@+id/tv_site"
-        app:layout_constraintTop_toTopOf="@+id/tv_site"
-        />
+        <TextView
+            android:id="@+id/tv_site_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            app:layout_constraintStart_toEndOf="@+id/tv_site"
+            app:layout_constraintTop_toTopOf="@+id/tv_site"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="10dp">
     <TextView
         android:id="@+id/tv_project"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
-        android:layout_marginVertical="@dimen/margin_detail"
         android:text="@string/request_project"
-        app:layout_constraintStart_toStartOf="@+id/tv_site"
-        app:layout_constraintTop_toBottomOf="@+id/tv_site" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_project_data"
@@ -82,16 +114,20 @@
         app:layout_constraintStart_toEndOf="@+id/tv_project"
         app:layout_constraintTop_toTopOf="@+id/tv_project"
         />
+</androidx.constraintlayout.widget.ConstraintLayout>
 
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="10dp">
     <TextView
         android:id="@+id/tv_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
-        android:layout_marginVertical="@dimen/margin_detail"
         android:text="@string/request_date"
-        app:layout_constraintStart_toStartOf="@+id/tv_project"
-        app:layout_constraintTop_toBottomOf="@+id/tv_project" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_date_data"
@@ -101,16 +137,20 @@
         app:layout_constraintStart_toEndOf="@+id/tv_date"
         app:layout_constraintTop_toTopOf="@+id/tv_date"
         />
+</androidx.constraintlayout.widget.ConstraintLayout>
 
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="10dp">
     <TextView
         android:id="@+id/tv_supplier"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
-        android:layout_marginVertical="@dimen/margin_detail"
         android:text="@string/request_supplier"
-        app:layout_constraintStart_toStartOf="@+id/tv_date"
-        app:layout_constraintTop_toBottomOf="@+id/tv_date" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_supplier_data"
@@ -120,16 +160,20 @@
         app:layout_constraintStart_toEndOf="@+id/tv_supplier"
         app:layout_constraintTop_toTopOf="@+id/tv_supplier"
         />
+</androidx.constraintlayout.widget.ConstraintLayout>
 
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="10dp">
     <TextView
         android:id="@+id/tv_amount_local"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
-        android:layout_marginVertical="@dimen/margin_detail"
         android:text="@string/request_amount_local"
-        app:layout_constraintStart_toStartOf="@+id/tv_supplier"
-        app:layout_constraintTop_toBottomOf="@+id/tv_supplier" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <TextView
@@ -141,16 +185,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tv_amount_local"
         />
+</androidx.constraintlayout.widget.ConstraintLayout>
 
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="10dp">
     <TextView
         android:id="@+id/tv_amount_bought"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
-        android:layout_marginVertical="@dimen/margin_detail"
         android:text="@string/request_amount_bought"
-        app:layout_constraintStart_toStartOf="@+id/tv_amount_local"
-        app:layout_constraintTop_toBottomOf="@+id/tv_amount_local" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_amount_bought_data"
@@ -161,16 +209,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tv_amount_bought"
         />
+</androidx.constraintlayout.widget.ConstraintLayout>
 
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="10dp">
     <TextView
         android:id="@+id/tv_budget_estimated"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
-        android:layout_marginVertical="@dimen/margin_detail"
         android:text="@string/request_budget_estimated"
-        app:layout_constraintStart_toStartOf="@+id/tv_amount_bought"
-        app:layout_constraintTop_toBottomOf="@+id/tv_amount_bought" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_budget_estimated_data"
@@ -181,16 +233,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tv_budget_estimated"
         />
+</androidx.constraintlayout.widget.ConstraintLayout>
 
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="10dp">
     <TextView
         android:id="@+id/tv_budget_used"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
-        android:layout_marginVertical="@dimen/margin_detail"
         android:text="@string/request_budget_used"
-        app:layout_constraintStart_toStartOf="@+id/tv_budget_estimated"
-        app:layout_constraintTop_toBottomOf="@+id/tv_budget_estimated" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_budget_used_data"
@@ -201,17 +257,23 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tv_budget_used" />
 
+</androidx.constraintlayout.widget.ConstraintLayout>
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        />
+</LinearLayout>
     <TextView
         android:id="@+id/tv_section_attachement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:textAllCaps="true"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="30dp"
         android:text="@string/section_attachement"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_budget_used" />
+        app:layout_constraintTop_toBottomOf="@+id/ll_request" />
 
     <TextView
         android:id="@+id/tv_section_notes"

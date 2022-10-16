@@ -3,6 +3,8 @@ package com.authentic.aip.presentation
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.ProgressBar
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
@@ -22,10 +24,13 @@ class ListAttachmentsActivity:AppCompatActivity(), ListAttachmentsAdapter.ItemCl
     private lateinit var adapter : ListAttachmentsAdapter
     private var pageNumber = 1
     var deli : Int?=0
+    var attachmentType : String? = null
+    var attachmentTitle : String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.attachments_list)
         this.supportActionBar?.hide()
+        val progressBar = findViewById<ProgressBar>(R.id.progress_bar)
         ToolbarManager.setBackpress(this)
         val toolbarStatus = App.prefs?.preferences?.getString(EnumClass.PreferencesEnum.REQUEST_STATUS_CODE.toString(), null)
         ToolbarManager.setDrawableByCodeStatus(this, toolbarStatus)
@@ -45,16 +50,37 @@ class ListAttachmentsActivity:AppCompatActivity(), ListAttachmentsAdapter.ItemCl
         listAttachmentsViewModel.listAttachmentsLiveData.observe(this){
             when{
                 it.isLoading->{
+                    progressBar.visibility = View.VISIBLE
                     Log.d("TLA", "STATE LOADING") }
                 it.error.isNotEmpty() -> {
+                    progressBar.visibility = View.GONE
                     Log.d("TLA", "STATE ERROR") }
                 it.listAttachments!=null ->{
+                    progressBar.visibility = View.GONE
                     Log.d("TLA", "STATE SUCCESS")
                     initview(it.listAttachments)
                 }
             }
         }
-
+/*        listAttachmentsViewModel.getAttachmentsLiveData.observe(this){
+            when{
+                it.isLoading->{
+                    progressBar.visibility = View.VISIBLE
+                    Log.d("TLA", "STATE LOADING") }
+                it.error.isNotEmpty() -> {
+                    progressBar.visibility = View.GONE
+                    Log.d("TLA", "STATE ERROR") }
+                it.attachmentData!=null ->{
+                    Log.d("TLA", "STATE SUCCESS")
+                    progressBar.visibility = View.GONE
+                    val newActivityIntent = Intent(this, DocumentViewerActivity::class.java)
+                    newActivityIntent.putExtra("contentType", attachmentType)
+                    newActivityIntent.putExtra("contentData", it.attachmentData)
+                    newActivityIntent.putExtra("contentTitle", attachmentTitle)
+                    startActivity(newActivityIntent)
+                }
+            }
+        }*/
         rv_listAttachments.addOnScrollListener(object : RecyclerView.OnScrollListener(){
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
@@ -95,9 +121,17 @@ class ListAttachmentsActivity:AppCompatActivity(), ListAttachmentsAdapter.ItemCl
     }
     override fun onAttachmentClick(attachment: Attachments?) {
         if(attachment!=null){
+            /*val sessionId = App.prefs?.preferences?.getString(EnumClass.PreferencesEnum.SESSION_ID.toString(), null)
+            val requestId = App.prefs?.preferences?.getString(EnumClass.PreferencesEnum.REQUEST_ID.toString(), null)
+            if(sessionId!=null && requestId!=null && attachment.docName!=null){
+                attachmentType = attachment.type
+                attachmentTitle = attachment.docName
+                listAttachmentsViewModel.getAttachments(sessionId, requestId, deli, attachment.doct.toString(), attachment.docName)
+            }*/
+            val newActivityIntent = Intent(this, DocumentViewerActivity::class.java)
+            newActivityIntent.putExtra("attachment", attachment)
+            startActivity(newActivityIntent)
 
-            /*val newActivityIntent = Intent(this, AttachmentActivity::class.java)
-            startActivity(newActivityIntent)*/
         }
     }
 }

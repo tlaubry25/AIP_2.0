@@ -2,6 +2,8 @@ package com.authentic.aip.presentation
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.ProgressBar
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -28,6 +30,7 @@ class NotesListActivity:AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.notes_list)
         this.supportActionBar?.hide()
+        val progressBar = findViewById<ProgressBar>(R.id.progress_bar)
         ToolbarManager.setBackpress(this)
         val toolbarStatus = App.prefs?.preferences?.getString(EnumClass.PreferencesEnum.REQUEST_STATUS_CODE.toString(), null)
         ToolbarManager.setDrawableByCodeStatus(this, toolbarStatus)
@@ -48,10 +51,13 @@ class NotesListActivity:AppCompatActivity() {
         notesListViewModel.notesListLiveData.observe(this){
             when{
                 it.isLoading->{
+                    progressBar.visibility = View.VISIBLE
                     Log.d("TLA", "STATE LOADING") }
                 it.error.isNotEmpty() -> {
+                    progressBar.visibility = View.GONE
                     Log.d("TLA", "STATE ERROR") }
                 it.notesList!=null ->{
+                    progressBar.visibility = View.GONE
                     Log.d("TLA", "STATE SUCCESS")
                     if(it.notesList.listNotes!=null){
                         initview(it.notesList)

@@ -1,13 +1,19 @@
 package com.authentic.aip.presentation.requestDetail.component
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
+import androidx.core.view.marginStart
 import androidx.recyclerview.widget.RecyclerView
 import com.authentic.aip.R
 import com.authentic.aip.domain.model.DedLine
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 
 class RequestDetailAdapter : RecyclerView.Adapter<RequestDetailAdapter.AttachmentHolder>{
     private var context: Context? = null
@@ -37,6 +43,8 @@ class RequestDetailAdapter : RecyclerView.Adapter<RequestDetailAdapter.Attachmen
         var tvNbNotes : TextView
         var tvNbAttachments : TextView
         var tvText : TextView
+        var tvDetailModification : TextView
+        var ivType : ImageView
         init {
             tvTitle = itemView.findViewById<View>(R.id.tv_request_detail_title) as TextView
             tvTotalAmountData = itemView.findViewById<View>(R.id.tv_request_detail_total_amount_data) as TextView
@@ -45,29 +53,8 @@ class RequestDetailAdapter : RecyclerView.Adapter<RequestDetailAdapter.Attachmen
             tvNbNotes = itemView.findViewById<View>(R.id.tv_section_notes) as TextView
             tvNbAttachments = itemView.findViewById<View>(R.id.tv_section_attachement) as TextView
             tvText = itemView.findViewById(R.id.tv_section_texte)
-        }
-        fun bind(dedline : DedLine){
-            /*        if(this.dedLineList?.get(position)?.nbNotes!=null){
-            holder.tvNbNotes.isClickable = this.dedLineList?.get(position)?.nbNotes!! >0
-        }
-        if(this.dedLineList?.get(position)?.nbDocs!=null){
-            holder.tvNbAttachments.isClickable = this.dedLineList?.get(position)?.nbDocs!! >0
-        }
-        if(this.dedLineList?.get(position)?.nbDocs!=null){
-            holder.tvNbAttachments.isClickable = this.dedLineList?.get(position)?.existText!!
-        }*/
-
-/*            tvNbNotes.setOnClickListener {
-                if(tvNbNotes.isClickable) clickListener?.onNotesClick(dedline)
-            }
-
-            tvNbAttachments.setOnClickListener {
-                if(tvNbAttachments.isClickable) clickListener?.onAttachmentClick(dedline)
-            }
-
-            tvText.setOnClickListener {
-                if(tvText.isClickable) clickListener?.onTextClick(dedline)
-            }*/
+            tvDetailModification = itemView.findViewById(R.id.tv_section_modification_detail)
+            ivType = itemView.findViewById(R.id.iv_type)
         }
 
     }
@@ -75,6 +62,7 @@ class RequestDetailAdapter : RecyclerView.Adapter<RequestDetailAdapter.Attachmen
         fun onNotesClick(dedLine: DedLine?)
         fun onAttachmentClick(dedLine: DedLine?)
         fun onTextClick(dedLine: DedLine?)
+        fun onDetailModification(dedLine: DedLine?)
 
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AttachmentHolder {
@@ -90,6 +78,37 @@ class RequestDetailAdapter : RecyclerView.Adapter<RequestDetailAdapter.Attachmen
         holder.tvUnitaryPrice.text = " "+context?.getString(R.string.request_detail_data_price, this.dedLineList?.get(position)?.pupr.toString())
         holder.tvNbNotes.text = context?.getString(R.string.section_notes, this.dedLineList?.get(position)?.nbNotes)
         holder.tvNbAttachments.text = context?.getString(R.string.section_attachement, this.dedLineList?.get(position)?.nbDocs)
+        var drawableStatus : Drawable? = null
+        when(this.dedLineList?.get(position)?.lineType){
+            "A"->{
+                holder.ivType.visibility = View.VISIBLE
+                drawableStatus = ContextCompat.getDrawable(context!!, R.drawable.add)
+                holder.tvDetailModification.visibility = View.VISIBLE
+                holder.tvDetailModification.setOnClickListener {
+                    clickListener?.onDetailModification(this.dedLineList?.get(position))}
+
+            }
+            "M"-> {
+                holder.ivType.visibility = View.VISIBLE
+                drawableStatus = ContextCompat.getDrawable(context!!, R.drawable.replace)
+                    holder.tvDetailModification.visibility = View.VISIBLE
+                    holder.tvDetailModification.setOnClickListener {
+                        clickListener?.onDetailModification(this.dedLineList?.get(position))}
+            }
+            else ->{
+                holder.ivType.visibility = View.GONE
+                holder.tvDetailModification.visibility = View.GONE
+
+            }
+        }
+
+        if(drawableStatus!=null){
+            Glide.with(context!!)
+                .load(drawableStatus)
+                .apply(RequestOptions.centerCropTransform())
+                .into(holder.ivType)
+
+        }
 
         if(this.dedLineList?.get(position)?.nbNotes!=null){
             if(this.dedLineList?.get(position)?.nbNotes!! >0){

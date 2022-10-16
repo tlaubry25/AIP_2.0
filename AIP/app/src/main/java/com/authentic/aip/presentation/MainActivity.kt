@@ -24,9 +24,10 @@ class MainActivity:AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_activity)
         this.supportActionBar?.hide()
+        val progressBar = findViewById<ProgressBar>(R.id.progress_bar)
         loginViewModel.loginLiveData.observe(this){
             Log.d("TLA", "RETOUR WEBSERVICE")
-            val progressBar = findViewById<ProgressBar>(R.id.progress_bar)
+
             when{
                 it.isLoading->{
                     progressBar.visibility = View.VISIBLE
@@ -35,15 +36,32 @@ class MainActivity:AppCompatActivity() {
                     progressBar.visibility = View.GONE
                     Log.d("TLA", "STATE ERROR") }
                 it.loginObject!=null ->{
-                    progressBar.visibility = View.GONE
                     Log.d("TLA", "STATE SUCCESS")
-
                     val uidEditor = prefs?.preferences?.edit()
                     uidEditor?.putString(EnumClass.PreferencesEnum.SESSION_ID.toString(), it.loginObject.uid)
                     uidEditor?.commit()
 
-                    val toMenuActivity = Intent(this, MenuActivity::class.java)
-                    startActivity(toMenuActivity)
+                    val uidDevice : String = ""
+                    loginViewModel.registerDevice(it.loginObject.uid, 'A', uidDevice)
+                }
+            }
+
+            loginViewModel.registerDeviceLiveData.observe(this){
+                when{
+                    it.isLoading->{
+                        Log.d("TLA", "STATE LOADING") }
+                    it.error.isNotEmpty() -> {
+                        progressBar.visibility = View.GONE
+                        Log.d("TLA", "STATE ERROR") }
+                    it.data!=null ->{
+                        progressBar.visibility = View.GONE
+                        Log.d("TLA", "STATE SUCCESS")
+                    }
+                    else->{
+                        progressBar.visibility = View.GONE
+                        val toMenuActivity = Intent(this, MenuActivity::class.java)
+                        startActivity(toMenuActivity)
+                    }
                 }
             }
         }

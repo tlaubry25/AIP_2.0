@@ -1,6 +1,7 @@
 package com.authentic.aip.data.remote.api
 
 import com.authentic.aip.data.remote.dto.genericResponse.GenericResponseDto
+import com.authentic.aip.data.remote.dto.getAttachment.GetAttachmentResponseDto
 import com.authentic.aip.data.remote.dto.listAttachments.ListAttachmentsResponseDto
 import com.authentic.aip.data.remote.dto.listRequest.ListRequestResponseDto
 import com.authentic.aip.data.remote.dto.nbRequest.GetNbRequestResponseDto
@@ -8,6 +9,8 @@ import com.authentic.aip.data.remote.dto.login.LoginResponseDto
 import com.authentic.aip.data.remote.dto.notesList.NotesListResponseDto
 import com.authentic.aip.data.remote.dto.request.RequestResponseDto
 import com.authentic.aip.data.remote.dto.requestDetail.RequestDetailResponseDto
+import com.authentic.aip.data.remote.dto.requestDetailModification.RequestDetailModificationDto
+import com.authentic.aip.data.remote.dto.requestDetailModification.RequestDetailModificationResponseDto
 import com.authentic.aip.data.remote.dto.requestGetText.RequestGetTextResponseDto
 import com.authentic.aip.data.remote.dto.validatorList.ValidatorListResponseDto
 import retrofit2.Call
@@ -31,13 +34,13 @@ interface AipApi {
     suspend fun viewRequestHead(@Query("uid")uid : String, @Query("cddeid")cddeid : String, @Query("orderType")orderType:Char?): RequestResponseDto
 
     @GET("listRequestLines")
-    suspend fun listRequestLines(@Query("uid")uid : String, @Query("cddeid")cddeid : String, @Query("orderType")orderType:Char, @Query("originalOrder")originalOrder: Boolean?, @Query("numPg")numPg:Int): RequestDetailResponseDto
+    suspend fun listRequestLines(@Query("uid")uid : String, @Query("cddeid")cddeid : String, @Query("orderType")orderType:Char, @Query("originalOrder")originalOrder: Int?, @Query("numPg")numPg:Int): RequestDetailResponseDto
 
     @GET("listNotes")
     suspend fun listNotes(@Query("uid")uid : String, @Query("cddeid")cddeid : String, @Query("deli")deli:Int, @Query("numPg")numPg:Int): NotesListResponseDto
 
     @GET("getRequestLineChanges")
-    suspend fun getRequestLineChanges(@Query("uid")uid : String, @Query("cddeid")cddeid : String, @Query("deli")deli:Int): Any
+    suspend fun getRequestLineChanges(@Query("uid")uid : String, @Query("cddeid")cddeid : String, @Query("deli")deli:Int): RequestDetailModificationResponseDto
 
     @GET("getText")
     suspend fun getText(@Query("uid")uid : String, @Query("cddeid")cddeid : String, @Query("deli")deli:Int): RequestGetTextResponseDto
@@ -46,7 +49,7 @@ interface AipApi {
     suspend fun listAttachements(@Query("uid")uid : String, @Query("cddeid")cddeid : String, @Query("deli")deli:Int, @Query("numPg")numPg:Int): ListAttachmentsResponseDto
 
     @GET("getAttachment")
-    suspend fun getAttachement(@Query("uid")uid : String, @Query("cddeid")cddeid : String, @Query("deli")deli:Int?, @Query("doct")doct:String, @Query("docName")docName:String): Any
+    suspend fun getAttachement(@Query("uid")uid : String, @Query("cddeid")cddeid : String, @Query("deli")deli:Int?, @Query("doct")doct:String, @Query("docName")docName:String): GetAttachmentResponseDto
 
     @GET("listValidators")
     suspend fun listValidators(@Query("uid")uid : String, @Query("cddeid")cddeid : String?, @Query("numPg")numPg:Int): ValidatorListResponseDto
@@ -67,5 +70,5 @@ interface AipApi {
     suspend fun verifyUrl(): GenericResponseDto
 
     @POST("registerDevice")
-    fun registerDevice(@Query("uid")uid : String, @Query("type")type : Char, @Query("did")did:String): Any
+    suspend fun registerDevice(@Query("uid")uid : String, @Query("type")type : Char, @Query("did")did:String): GenericResponseDto
 }

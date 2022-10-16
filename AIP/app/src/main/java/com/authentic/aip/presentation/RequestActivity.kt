@@ -3,10 +3,13 @@ package com.authentic.aip.presentation
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatButton
 import com.authentic.aip.R
 import com.authentic.aip.common.EnumClass
 import com.authentic.aip.domain.model.Request
@@ -20,10 +23,12 @@ import java.util.*
 @AndroidEntryPoint
 class RequestActivity:AppCompatActivity() {
     private val requestViewModel: RequestViewModel by viewModels()
+    private var originalOrder : Int? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.request)
         this.supportActionBar?.hide()
+        val progressBar = findViewById<ProgressBar>(R.id.progress_bar)
         ToolbarManager.setBackpress(this)
         val toolbarStatus = App.prefs?.preferences?.getString(EnumClass.PreferencesEnum.REQUEST_STATUS_CODE.toString(), null)
         ToolbarManager.setDrawableByCodeStatus(this, toolbarStatus)
@@ -42,12 +47,15 @@ class RequestActivity:AppCompatActivity() {
         requestViewModel.requestDetailLiveData.observe(this){
             when{
                 it.isLoading->{
+                    progressBar.visibility = View.VISIBLE
                     Log.d("TLA", "STATE LOADING")
                 }
                 it.error.isNotEmpty() -> {
+                    progressBar.visibility = View.GONE
                     Log.d("TLA", "STATE ERROR")
                 }
                 it.requestData!=null ->{
+                    progressBar.visibility = View.GONE
                     Log.d("TLA", "STATE SUCCESS")
                     initView(it.requestData)
                 }
@@ -74,20 +82,20 @@ class RequestActivity:AppCompatActivity() {
             startActivity(newActivityIntent)
         }
 
-        val validButton = findViewById<Button>(R.id.button_valide)
+        val validButton = findViewById<AppCompatButton>(R.id.button_valide)
         validButton.setOnClickListener {
             launchValidationActivity(EnumClass.ActionValidationEnum.VALID)
         }
-        val explainButton = findViewById<Button>(R.id.button_question)
+        val explainButton = findViewById<AppCompatButton>(R.id.button_question)
         explainButton.setOnClickListener {
             launchValidationActivity(EnumClass.ActionValidationEnum.EXPLAIN)
         }
 
-        val deniedButton = findViewById<Button>(R.id.button_refuse)
+        val deniedButton = findViewById<AppCompatButton>(R.id.button_refuse)
         deniedButton.setOnClickListener {
             launchValidationActivity(EnumClass.ActionValidationEnum.REFUSE)
         }
-        val changeValidatorButton = findViewById<Button>(R.id.button_transfer)
+        val changeValidatorButton = findViewById<AppCompatButton>(R.id.button_transfer)
         changeValidatorButton.setOnClickListener {
             val newActivityIntent = Intent(this, ValidatorUpdateActivity::class.java)
             startActivity(newActivityIntent)

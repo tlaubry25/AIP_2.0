@@ -58,19 +58,19 @@ class ListAttachmentsAdapter : RecyclerView.Adapter<ListAttachmentsAdapter.Attac
         holder.tvTitle.setText(this.attachmentsList?.get(position)?.docName)
         var drawableTypeAttachments: Drawable?
         when(this.attachmentsList?.get(position)?.type){
-            EnumClass.TypeAttachmentEnum.PDF.toString()->{
+            EnumClass.TypeAttachmentEnum.PDF.toString().lowercase()->{
                 drawableTypeAttachments = ContextCompat.getDrawable(context!!, R.drawable.pdf)
             }
-            EnumClass.TypeAttachmentEnum.EXCEL.toString()->{
+            EnumClass.TypeAttachmentEnum.EXCEL.toString().lowercase()->{
                 drawableTypeAttachments = ContextCompat.getDrawable(context!!, R.drawable.excel)
             }
-            EnumClass.TypeAttachmentEnum.WORD.toString()->{
+            EnumClass.TypeAttachmentEnum.WORD.toString().lowercase()->{
                 drawableTypeAttachments = ContextCompat.getDrawable(context!!, R.drawable.word)
             }
-            EnumClass.TypeAttachmentEnum.ZIP.toString()->{
+            EnumClass.TypeAttachmentEnum.ZIP.toString().lowercase()->{
                 drawableTypeAttachments = ContextCompat.getDrawable(context!!, R.drawable.zip)
             }
-            EnumClass.TypeAttachmentEnum.TXT.toString()->{
+            EnumClass.TypeAttachmentEnum.TXT.toString().lowercase()->{
                 drawableTypeAttachments = ContextCompat.getDrawable(context!!, R.drawable.txt)
             }
             else->{

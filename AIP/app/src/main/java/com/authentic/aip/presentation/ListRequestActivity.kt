@@ -6,7 +6,9 @@ import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -33,6 +35,7 @@ class ListRequestActivity : AppCompatActivity(), RequestListAdapter.ItemClickLis
         super.onCreate(savedInstanceState)
         setContentView(R.layout.requests_list)
         this.supportActionBar?.hide()
+        val progressBar = findViewById<ProgressBar>(R.id.progress_bar)
 //        val intent = intent
         typeView = App.prefs?.preferences?.getString(EnumClass.PreferencesEnum.REQUEST_TYPE.toString(), null)
 //        typeView = intent.getStringExtra("typeRequest")
@@ -68,10 +71,13 @@ class ListRequestActivity : AppCompatActivity(), RequestListAdapter.ItemClickLis
         listRequestViewModel.listRequestLiveData.observe(this){
             when{
                 it.isLoading->{
+                    progressBar.visibility = View.VISIBLE
                     Log.d("TLA", "STATE LOADING") }
                 it.error.isNotEmpty() -> {
+                    progressBar.visibility = View.GONE
                     Log.d("TLA", "STATE ERROR") }
                 it.listRequest!=null ->{
+                    progressBar.visibility = View.GONE
                     Log.d("TLA", "STATE SUCCESS")
 
                     initview(it.listRequest)
@@ -80,7 +86,6 @@ class ListRequestActivity : AppCompatActivity(), RequestListAdapter.ItemClickLis
         }
 
         btNavigation.setOnClickListener {
-            //TODO Kill instance courante et créer nouvelle instance de ListRequestActivity avec l'autre type
             val uidEditor = App.prefs?.preferences?.edit()
             if(typeView == EnumClass.TypeRequestEnum.ONGOING.toString()){
                 uidEditor?.putString(EnumClass.PreferencesEnum.REQUEST_TYPE.toString(), EnumClass.TypeRequestEnum.DONE.toString())
@@ -107,7 +112,9 @@ class ListRequestActivity : AppCompatActivity(), RequestListAdapter.ItemClickLis
         }
         adapter.setRequestList(listRequestToFill)
         adapter.notifyDataSetChanged()
-
+        if(pageNumber==1){
+            callPagination()
+        }
     }
 
     private fun loadRequests(){

@@ -13,7 +13,7 @@ import javax.inject.Inject
 class RequestDetailInteractor@Inject constructor(
     private val repository: AppRepository
 ){
-    operator fun invoke(uid: String, cddeid: String, orderType: Char, originalOrder: Boolean?, numPg: Int): Flow<Resource<RequestDetail>> = flow {
+    operator fun invoke(uid: String, cddeid: String, orderType: Char, originalOrder: Int?, numPg: Int): Flow<Resource<RequestDetail>> = flow {
         try {
             emit(Resource.Loading<RequestDetail>())
             val requestDetail = repository.listRequestLines(uid = uid, cddeid = cddeid, orderType = orderType, originalOrder = originalOrder, numPg = numPg).data.toRequestDetail()

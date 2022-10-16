@@ -18,7 +18,7 @@ class RequestDetailViewModel @Inject constructor(
     private val _requestDetailData = MutableLiveData<RequestDetailState>()
     val requestDetailLiveData : LiveData<RequestDetailState> = _requestDetailData
 
-    fun requestDetail(uid: String, cddeid: String, orderType: Char, originalOrder: Boolean?, numPg: Int){
+    fun requestDetail(uid: String, cddeid: String, orderType: Char, originalOrder: Int?, numPg: Int){
         requestDetailInteractor(uid, cddeid, orderType, originalOrder, numPg).onEach { result->
             when(result){
                 is Resource.Error ->{

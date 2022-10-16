@@ -4,10 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.Spinner
+import android.widget.*
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.authentic.aip.R
@@ -30,6 +27,7 @@ class ValidatorUpdateActivity:AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.validator_modification)
         this.supportActionBar?.hide()
+        val progressBar = findViewById<ProgressBar>(R.id.progress_bar)
         ToolbarManager.setBackpress(this)
         val toolbarStatus = App.prefs?.preferences?.getString(EnumClass.PreferencesEnum.REQUEST_STATUS_CODE.toString(), null)
         ToolbarManager.setDrawableByCodeStatus(this, toolbarStatus)
@@ -46,10 +44,13 @@ class ValidatorUpdateActivity:AppCompatActivity() {
         listValidatorsViewModel.listValidatorsLiveData.observe(this){
             when{
                 it.isLoading->{
+                    progressBar.visibility = View.VISIBLE
                     Log.d("TLA", "STATE LOADING") }
                 it.error.isNotEmpty() -> {
+                    progressBar.visibility = View.GONE
                     Log.d("TLA", "STATE ERROR") }
                 it.listValidators!=null ->{
+                    progressBar.visibility = View.GONE
                     Log.d("TLA", "STATE SUCCESS")
 
                     initview(it.listValidators)
@@ -65,13 +66,17 @@ class ValidatorUpdateActivity:AppCompatActivity() {
             listValidatorsViewModel.updateValidatorLiveData.observe(this){
                 when{
                     it.isLoading->{
+                        progressBar.visibility = View.VISIBLE
                         Log.d("TLA", "STATE LOADING") }
                     it.error.isNotEmpty() -> {
+                        progressBar.visibility = View.GONE
                         Log.d("TLA", "STATE ERROR") }
                     it.data!=null ->{
+                        progressBar.visibility = View.GONE
                         Log.d("TLA", "STATE SUCCESS")
                     }
                     else->{
+                        progressBar.visibility = View.GONE
                         //GOTO LISTREQUEST
                         val newActivityIntent = Intent(this, ListRequestActivity::class.java)
                         newActivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)

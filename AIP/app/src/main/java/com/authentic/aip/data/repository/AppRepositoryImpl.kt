@@ -2,6 +2,7 @@ package com.authentic.aip.data.repository
 
 import com.authentic.aip.data.remote.api.AipApi
 import com.authentic.aip.data.remote.dto.genericResponse.GenericResponseDto
+import com.authentic.aip.data.remote.dto.getAttachment.GetAttachmentResponseDto
 import com.authentic.aip.data.remote.dto.listAttachments.ListAttachmentsResponseDto
 import com.authentic.aip.data.remote.dto.listRequest.ListRequestResponseDto
 import com.authentic.aip.data.remote.dto.nbRequest.GetNbRequestResponseDto
@@ -9,6 +10,8 @@ import com.authentic.aip.data.remote.dto.login.LoginResponseDto
 import com.authentic.aip.data.remote.dto.notesList.NotesListResponseDto
 import com.authentic.aip.data.remote.dto.request.RequestResponseDto
 import com.authentic.aip.data.remote.dto.requestDetail.RequestDetailResponseDto
+import com.authentic.aip.data.remote.dto.requestDetailModification.RequestDetailModificationDto
+import com.authentic.aip.data.remote.dto.requestDetailModification.RequestDetailModificationResponseDto
 import com.authentic.aip.data.remote.dto.requestGetText.RequestGetTextResponseDto
 import com.authentic.aip.data.remote.dto.validatorList.ValidatorListResponseDto
 import com.authentic.aip.domain.repository.AppRepository
@@ -18,6 +21,10 @@ class AppRepositoryImpl @Inject constructor(private var appApi : AipApi):AppRepo
 
     override suspend fun getLogin(login:String, password : String): LoginResponseDto {
         return appApi.loginRequest(login, password, "fr")
+    }
+
+    override suspend fun verifyUrl(): GenericResponseDto {
+        return appApi.verifyUrl()
     }
 
     override suspend fun getNbRequest(uid:String, orderType : Char, histo:Boolean?): GetNbRequestResponseDto {
@@ -40,8 +47,12 @@ class AppRepositoryImpl @Inject constructor(private var appApi : AipApi):AppRepo
         return appApi.getText(uid, cddeid, deli)
     }
 
-    override suspend fun listRequestLines(uid: String, cddeid: String, orderType: Char, originalOrder: Boolean?, numPg: Int): RequestDetailResponseDto {
+    override suspend fun listRequestLines(uid: String, cddeid: String, orderType: Char, originalOrder: Int?, numPg: Int): RequestDetailResponseDto {
         return appApi.listRequestLines(uid, cddeid, orderType, originalOrder, numPg)
+    }
+
+    override suspend fun getRequestLineChanges(uid: String, cddeid: String, deli: Int): RequestDetailModificationResponseDto {
+        return appApi.getRequestLineChanges(uid, cddeid, deli)
     }
 
     override suspend fun listAttachements(uid: String, cddeid: String, deli: Int, numPg: Int): ListAttachmentsResponseDto {
@@ -68,7 +79,11 @@ class AppRepositoryImpl @Inject constructor(private var appApi : AipApi):AppRepo
         return appApi.updateValidator(uid, cddeid, deli, valr, comment)
     }
 
-    override suspend fun getAttachement(uid: String, cddeid: String, deli: Int?, doct: String,docName: String): Any {
+    override suspend fun getAttachement(uid: String, cddeid: String, deli: Int?, doct: String,docName: String): GetAttachmentResponseDto {
         return appApi.getAttachement(uid, cddeid, deli, doct, docName)
+    }
+
+    override suspend fun registerDevice(uid: String, type: Char, did: String): GenericResponseDto {
+        return appApi.registerDevice(uid, type, did)
     }
 }

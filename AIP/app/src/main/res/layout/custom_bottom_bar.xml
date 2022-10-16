@@ -16,14 +16,14 @@
     android:background="@drawable/shapeline"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintStart_toStartOf="parent">
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button_valide"
         android:layout_width="0dp"
         android:layout_height="@dimen/bottom_button_height"
         android:layout_marginHorizontal="10dp"
         android:layout_weight="1"
         android:background="@drawable/valide"/>
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button_question"
         android:layout_width="0dp"
         android:layout_height="@dimen/bottom_button_height"
@@ -31,7 +31,7 @@
         android:layout_weight="1"
         android:background="@drawable/question"/>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button_refuse"
         android:layout_width="0dp"
         android:layout_height="@dimen/bottom_button_height"
@@ -39,7 +39,7 @@
         android:layout_weight="1"
         android:background="@drawable/cross"/>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button_transfer"
         android:layout_width="0dp"
         android:layout_height="@dimen/bottom_button_height"

@@ -30,7 +30,13 @@ class RequestListAdapter : RecyclerView.Adapter<RequestListAdapter.MyViewHolder>
     fun setRequestList(listRequest : List<POs>){
         var mutableRequestList : MutableList<POs> = mutableListOf()
         requestList?.let { mutableRequestList.addAll(it) }
-        listRequest.let { mutableRequestList.addAll(it) }
+        var mutableRequestListToAdd : MutableList<POs> = mutableListOf()
+        for(request in listRequest){
+            if(requestList?.any { it.cddeid == request.cddeid } == false && mutableRequestListToAdd.any{ it.cddeid == request.cddeid} == false){
+                mutableRequestListToAdd.add(request)
+            }
+        }
+        mutableRequestList.addAll(mutableRequestListToAdd)
         requestList = mutableRequestList
         notifyDataSetChanged()
 

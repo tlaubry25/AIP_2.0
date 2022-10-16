@@ -15,15 +15,15 @@ import javax.inject.Inject
 class DocumentViewerViewModel @Inject constructor(
     private val attachmentInteractor : GetAttachmentInteractor
 ): ViewModel() {
-    private val _attachmentData = MutableLiveData<AttachmentState>()
-    val attachmentLiveData : LiveData<AttachmentState> = _attachmentData
+    private val _attachmentData = MutableLiveData<GetAttachmentState>()
+    val attachmentLiveData : LiveData<GetAttachmentState> = _attachmentData
 
-    fun getAttachment(uid: String, cddeid: String, deli: Int?, doct: String,docName: String){
+    fun getAttachment(uid: String, cddeid: String, deli: Int?, doct: String, docName: String){
         attachmentInteractor(uid, cddeid, deli, doct, docName).onEach { result->
             when(result){
-                is Resource.Error ->{ _attachmentData.value = AttachmentState(error = "testError") }
-                is Resource.Loading ->{ _attachmentData.value = AttachmentState(isLoading = true)  }
-                is Resource.Success ->{ _attachmentData.value = AttachmentState(attachmentData = result.data) }
+                is Resource.Error ->{ _attachmentData.value = GetAttachmentState(error = "testError") }
+                is Resource.Loading ->{ _attachmentData.value = GetAttachmentState(isLoading = true)  }
+                is Resource.Success ->{ _attachmentData.value = GetAttachmentState(attachmentData = result.data) }
             }
         }.launchIn(viewModelScope)
     }

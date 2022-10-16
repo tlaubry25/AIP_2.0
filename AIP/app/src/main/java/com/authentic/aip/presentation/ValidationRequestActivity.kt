@@ -3,8 +3,10 @@ package com.authentic.aip.presentation
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -23,6 +25,7 @@ class ValidationRequestActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.validation_request)
         this.supportActionBar?.hide()
+        val progressBar = findViewById<ProgressBar>(R.id.progress_bar)
         ToolbarManager.setBackpress(this)
         val toolbarStatus = App.prefs?.preferences?.getString(EnumClass.PreferencesEnum.REQUEST_STATUS_CODE.toString(), null)
         ToolbarManager.setDrawableByCodeStatus(this, toolbarStatus)
@@ -81,16 +84,20 @@ class ValidationRequestActivity : AppCompatActivity() {
         validationRequestViewModel.validateRequestLiveData.observe(this){
             when{
                 it.isLoading->{
+                    progressBar.visibility = View.VISIBLE
                     Log.d("TLA", "STATE LOADING")
                 }
                 it.error.isNotEmpty() -> {
+                    progressBar.visibility = View.GONE
                     Log.d("TLA", "STATE ERROR")
                 }
                 it.data!=null ->{
+                    progressBar.visibility = View.GONE
                     Log.d("TLA", "STATE SUCCESS")
                     //WEBSERVICE SUCCESS, GOTO LISTREQUEST
                 }
                 else->{
+                    progressBar.visibility = View.GONE
                     Log.d("TLA", "STATE ELSE")
                     //GOTO LISTREQUEST
                     val newActivityIntent = Intent(this, ListRequestActivity::class.java)
@@ -102,15 +109,19 @@ class ValidationRequestActivity : AppCompatActivity() {
         validationRequestViewModel.explainDataLiveData.observe(this){
             when{
                 it.isLoading->{
+                    progressBar.visibility = View.VISIBLE
                     Log.d("TLA", "STATE LOADING")
                 }
                 it.error.isNotEmpty() -> {
+                    progressBar.visibility = View.GONE
                     Log.d("TLA", "STATE ERROR")
                 }
                 it.data!=null ->{
+                    progressBar.visibility = View.GONE
                     //WEBSERVICE SUCCESS, GOTO LISTREQUEST
                 }
                 else->{
+                    progressBar.visibility = View.GONE
                     //GOTO LISTREQUEST
                     val newActivityIntent = Intent(this, ListRequestActivity::class.java)
                     newActivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
@@ -122,15 +133,19 @@ class ValidationRequestActivity : AppCompatActivity() {
         validationRequestViewModel.denyRequestLiveData.observe(this){
             when{
                 it.isLoading->{
+                    progressBar.visibility = View.VISIBLE
                     Log.d("TLA", "STATE LOADING")
                 }
                 it.error.isNotEmpty() -> {
+                    progressBar.visibility = View.GONE
                     Log.d("TLA", "STATE ERROR")
                 }
                 it.data!=null ->{
+                    progressBar.visibility = View.GONE
                     //WEBSERVICE SUCCESS, GOTO LISTREQUEST
                 }
                 else->{
+                    progressBar.visibility = View.GONE
                     //GOTO LISTREQUEST
                     val newActivityIntent = Intent(this, ListRequestActivity::class.java)
                     newActivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)

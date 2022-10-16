@@ -11,15 +11,15 @@ import javax.inject.Inject
 class GetAttachmentInteractor @Inject constructor(
     private val repository: AppRepository
 ){
-    operator fun invoke(uid: String, cddeid: String, deli: Int?, doct: String,docName: String): Flow<Resource<Any>> = flow {
+    operator fun invoke(uid: String, cddeid: String, deli: Int?, doct: String,docName: String): Flow<Resource<String>> = flow {
         try {
-            emit(Resource.Loading<Any>())
-            val attachment = repository.getAttachement(uid = uid, cddeid = cddeid, deli = deli, doct = doct, docName = docName)
-            emit(Resource.Success<Any>(attachment))
+            emit(Resource.Loading<String>())
+            val attachment = repository.getAttachement(uid = uid, cddeid = cddeid, deli = deli, doct = doct, docName = docName).data
+            emit(Resource.Success<String>(attachment))
         } catch (e: HttpException) {
-            emit(Resource.Error<Any>(e.localizedMessage ?: "An unexpected error happened"))
+            emit(Resource.Error<String>(e.localizedMessage ?: "An unexpected error happened"))
         } catch (e: IOException) {
-            emit(Resource.Error<Any>("Couldn't reach server. Check your internet connection"))
+            emit(Resource.Error<String>("Couldn't reach server. Check your internet connection"))
         }
     }
 }

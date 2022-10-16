@@ -46,8 +46,22 @@
         android:id="@+id/button_validate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:text="@string/validation_button_validation"
         android:textAllCaps="true"
+        android:background="@drawable/rounded_button"
         app:layout_constraintEnd_toEndOf="@+id/et_commentary_bloc"
         app:layout_constraintTop_toBottomOf="@+id/et_commentary_bloc"/>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:visibility="gone"
+        android:indeterminateTint="@color/progressbar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

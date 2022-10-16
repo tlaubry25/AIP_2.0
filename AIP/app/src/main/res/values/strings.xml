@@ -45,11 +45,13 @@
     <string name="section_notes">Notes (%1$d)</string>
     <string name="section_detail">Détail</string>
     <string name="section_texte">Texte</string>
+    <string name="section_modification_detail">Détails modification</string>
 
     <!--    navigation    -->
     <string name="navigation_historical">Historique </string>
     <string name="navigation_ongoing">En cours </string>
     <string name="navigation_original_request">Commande d\'origine </string>
+    <string name="navigation_modified_request">Commande modifiée </string>
     <!--    toolbar    -->
     <string name="toolbar_historical">Historique </string>
     <string name="toolbar_ongoing">Elements en cours </string>

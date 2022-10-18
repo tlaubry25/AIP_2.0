@@ -19,8 +19,8 @@ import javax.inject.Inject
 
 class AppRepositoryImpl @Inject constructor(private var appApi : AipApi):AppRepository{
 
-    override suspend fun getLogin(login:String, password : String): LoginResponseDto {
-        return appApi.loginRequest(login, password, "fr")
+    override suspend fun getLogin(login:String, password : String, language:String): LoginResponseDto {
+        return appApi.loginRequest(login, password, language)
     }
 
     override suspend fun verifyUrl(): GenericResponseDto {
@@ -55,8 +55,8 @@ class AppRepositoryImpl @Inject constructor(private var appApi : AipApi):AppRepo
         return appApi.getRequestLineChanges(uid, cddeid, deli)
     }
 
-    override suspend fun listAttachements(uid: String, cddeid: String, deli: Int, numPg: Int): ListAttachmentsResponseDto {
-        return appApi.listAttachements(uid, cddeid, deli, numPg)
+    override suspend fun listAttachments(uid: String, cddeid: String, deli: Int, numPg: Int): ListAttachmentsResponseDto {
+        return appApi.listAttachments(uid, cddeid, deli, numPg)
     }
 
     override suspend fun listValidators(uid: String, cddeid: String?, numPg: Int): ValidatorListResponseDto {

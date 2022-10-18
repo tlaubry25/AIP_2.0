@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AIP</string>
+    <string name="sharedPreferenceId">SharedPreference</string>
+    <!--    login    -->
+    <string name="login_identifier">Identifiant</string>
+    <string name="login_password">Mot de passe</string>
+    <string name="login_adress">Adresse</string>
+    <string name="login_port">Port</string>
+    <string name="login_test">Tester</string>
+    <string name="login_connection">Connexion</string>
+
+    <!--    menu    -->
+    <string name="menu_progress">éléments en cours</string>
+    <string name="menu_historical">historique</string>
+    <!--    requestList    -->
+    <string name="request_amount_text">%1$s €</string>
+
+    <!--    request status   -->
+    <string name="request_status_ongoing">En cours d\'approbation</string>
+    <string name="request_status_accepted">Acceptée</string>
+    <string name="request_status_denied">Refusée</string>
+    <string name="request_status_accepted_closed">Acceptée et Fermée</string>
+    <string name="request_status_closed">Fermée</string>
+    <string name="request_status_canceled">Annulée</string>
+    <string name="request_status_unknown">Statut inconnu</string>
+
+    <!--    request    -->
+    <string name="request_beneficiary">Bénéficiaire: </string>
+    <string name="request_center">Centre de coût: </string>
+    <string name="request_site">Site: </string>
+    <string name="request_project">Projet: </string>
+    <string name="request_date">Date demandée: </string>
+    <string name="request_supplier">Fournisseur: </string>
+    <string name="request_amount_local">Montant en dev. locale: </string>
+    <string name="request_amount_bought">Montant en dev. achat: </string>
+    <string name="request_budget_estimated">Montant budgété: </string>
+    <string name="request_budget_used">Montant déjà engagé: </string>
+    <!-- requestDetail -->
+    <string name="request_detail_total_price">Total ligne : </string>
+    <string name="request_detail_quantity">Quantité : </string>
+    <string name="request_detail_unitary_price"> - Montant : </string>MLABUR
+    <string name="request_detail_data_price">%1$s EUR</string>
+    <!--    section    -->
+    <string name="section_attachement"> Pièces jointes (%1$d)</string>
+    <string name="section_notes">Notes (%1$d)</string>
+    <string name="section_detail">Détail</string>
+    <string name="section_texte">Texte</string>
+    <string name="section_modification_detail">Détails modification</string>
+
+    <!--    navigation    -->
+    <string name="navigation_historical">Historique </string>
+    <string name="navigation_ongoing">En cours </string>
+    <string name="navigation_original_request">Commande d\'origine </string>
+    <string name="navigation_modified_request">Commande modifiée </string>
+    <!--    toolbar    -->
+    <string name="toolbar_historical">Historique </string>
+    <string name="toolbar_ongoing">Elements en cours </string>
+    <string name="toolbar_back">retour</string>
+    <!--    modification    -->
+    <string name="modification_before">Avant </string>
+    <string name="modification_now">Maintenant </string>
+    <!--    validation    -->
+    <string name="validation_validate">Vous allez accepter la demande</string>
+    <string name="validation_question">Vous avez besoin d\'informations concernant la demande</string>
+    <string name="validation_refuse">Vous allez refuser la demande</string>
+    <string name="validation_comment_title">Vous pouvez commenter votre choix: </string>
+    <string name="validation_button_validation">Valider</string>
+    <string name="validation_button_accept">Vous avez accepté la demande</string>
+    <string name="validation_button_explain">Vous avez demandé des informations concernant la demande</string>
+    <string name="validation_button_denied">Vous avez refusé la demande</string>
+
+    <string name="update_validator_success">Modification acceptée</string>
+
+
+    <string name="attachment_format_incompatible">Ce format de fichier n\'est pas visualisable</string>
+    <string name="get_attachment_ws_error">Couldn\'t get the attachment</string>
+    <!-- Popup labels -->
+    <string name="pop_up_ok">OK</string>
+    <string name="pop_up_cancel">Annuler</string>
+
+    <!--  Login -->
+    <string name="login_error_login_empty">Vous devez renseigner un nom d\'utilisateur</string>
+    <string name="login_error_password_empty">Vous devez renseigner un mot de passe</string>
+    <string name="login_error_server_empty">Vous devez renseigner le nom du serveur</string>
+    <string name="login_error_port_empty">Vous devez renseigner le port du serveur</string>
+
+    <string name="login_ws_error">Impossible de joindre le serveur spécifié</string>
+    <string name="login_ws_ok">Connexion établie</string>
+
+    <!-- WS retour -->
+    // API Errors
+    <string name="ws_error_404">Impossible de récupérer les données</string>
+    <string name="ws_error_unknown">Une erreur inconnue est survenue</string>
+    <string name="ws_no_data">Aucune donnée disponible</string>
+
+    <!-- Notifications -->
+    <string name="notification_new_data">Vous avez une nouvelle demande, pensez à rafraîchir vos données</string>
+</resources>

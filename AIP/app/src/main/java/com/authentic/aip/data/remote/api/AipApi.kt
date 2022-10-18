@@ -46,7 +46,7 @@ interface AipApi {
     suspend fun getText(@Query("uid")uid : String, @Query("cddeid")cddeid : String, @Query("deli")deli:Int): RequestGetTextResponseDto
 
     @GET("listAttachments")
-    suspend fun listAttachements(@Query("uid")uid : String, @Query("cddeid")cddeid : String, @Query("deli")deli:Int, @Query("numPg")numPg:Int): ListAttachmentsResponseDto
+    suspend fun listAttachments(@Query("uid")uid : String, @Query("cddeid")cddeid : String, @Query("deli")deli:Int, @Query("numPg")numPg:Int): ListAttachmentsResponseDto
 
     @GET("getAttachment")
     suspend fun getAttachement(@Query("uid")uid : String, @Query("cddeid")cddeid : String, @Query("deli")deli:Int?, @Query("doct")doct:String, @Query("docName")docName:String): GetAttachmentResponseDto

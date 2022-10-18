@@ -121,17 +121,15 @@ class ListAttachmentsActivity:AppCompatActivity(), ListAttachmentsAdapter.ItemCl
     }
     override fun onAttachmentClick(attachment: Attachments?) {
         if(attachment!=null){
-            /*val sessionId = App.prefs?.preferences?.getString(EnumClass.PreferencesEnum.SESSION_ID.toString(), null)
-            val requestId = App.prefs?.preferences?.getString(EnumClass.PreferencesEnum.REQUEST_ID.toString(), null)
-            if(sessionId!=null && requestId!=null && attachment.docName!=null){
-                attachmentType = attachment.type
-                attachmentTitle = attachment.docName
-                listAttachmentsViewModel.getAttachments(sessionId, requestId, deli, attachment.doct.toString(), attachment.docName)
-            }*/
-            val newActivityIntent = Intent(this, DocumentViewerActivity::class.java)
-            newActivityIntent.putExtra("attachment", attachment)
-            startActivity(newActivityIntent)
-
+            if(!attachment.type.isNullOrEmpty()){
+                if(attachment.type.equals("zip")){
+                    MessageManager.showToast(this, R.string.attachment_format_incompatible)
+                }else{
+                    val newActivityIntent = Intent(this, DocumentViewerActivity::class.java)
+                    newActivityIntent.putExtra("attachment", attachment)
+                    startActivity(newActivityIntent)
+                }
+            }
         }
     }
 }

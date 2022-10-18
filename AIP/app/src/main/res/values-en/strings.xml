@@ -87,8 +87,6 @@
     <string name="login_ws_error">Couldn\'t reach the specified server</string>
     <string name="login_ws_ok">Connection performed</string>
 
-
-
     <!-- WS retour -->
     // API Errors
     <string name="ws_error_404">Failed to get data</string>

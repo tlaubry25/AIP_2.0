@@ -13,10 +13,10 @@ import javax.inject.Inject
 class LoginInteractor @Inject constructor(
     private val repository: AppRepository
 ){
-    operator fun invoke(login: String, password: String): Flow<Resource<Login>> = flow {
+    operator fun invoke(login: String, password: String, language:String): Flow<Resource<Login>> = flow {
         try {
             emit(Resource.Loading<Login>())
-            val login = repository.getLogin(login = login, password = password).data.toLogin()
+            val login = repository.getLogin(login = login, password = password,language).data.toLogin()
             emit(Resource.Success<Login>(login))
         } catch (e: HttpException) {
             emit(Resource.Error<Login>(e.localizedMessage ?: "An unexpected error happened"))

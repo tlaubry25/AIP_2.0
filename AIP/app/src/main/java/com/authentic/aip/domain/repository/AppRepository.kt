@@ -17,7 +17,7 @@ import retrofit2.http.Query
 
 interface AppRepository {
 
-    suspend fun getLogin(login:String, password : String): LoginResponseDto
+    suspend fun getLogin(login:String, password : String, language : String): LoginResponseDto
     suspend fun verifyUrl(): GenericResponseDto
     suspend fun getNbRequest(uid:String, orderType : Char, histo:Boolean?): GetNbRequestResponseDto
     suspend fun listRequests(uid : String, orderType : Char, histo:Int, numPg:Int): ListRequestResponseDto
@@ -26,7 +26,7 @@ interface AppRepository {
     suspend fun getText(uid : String, cddeid : String, deli:Int): RequestGetTextResponseDto
     suspend fun listRequestLines(uid : String, cddeid : String, orderType:Char, originalOrder: Int?, numPg:Int): RequestDetailResponseDto
     suspend fun getRequestLineChanges(uid : String, cddeid : String, deli:Int): RequestDetailModificationResponseDto
-    suspend fun listAttachements(uid : String, cddeid : String, deli:Int, numPg:Int): ListAttachmentsResponseDto
+    suspend fun listAttachments(uid : String, cddeid : String, deli:Int, numPg:Int): ListAttachmentsResponseDto
     suspend fun listValidators(uid : String, cddeid : String?, numPg:Int): ValidatorListResponseDto
 
     suspend fun validateRequest(uid : String, cddeid : String, deli:Int, orderType:Char, comment:String): GenericResponseDto

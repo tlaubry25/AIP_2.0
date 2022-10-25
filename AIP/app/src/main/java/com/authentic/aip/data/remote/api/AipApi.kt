@@ -21,54 +21,54 @@ import retrofit2.http.Query
 
 interface AipApi {
 
-    @POST("login")
+    @POST("/aip/rs/api/login")
     suspend fun loginRequest(@Query("login")login : String, @Query("pwd")pwd : String, @Query("lng")lng:String): LoginResponseDto
 
-    @GET("getNbRequests")
+    @GET("/aip/rs/api/getNbRequests")
     suspend fun getNbRequest(@Query("uid")uid : String, @Query("orderType")orderType : Char, @Query("histo")histo:Boolean?): GetNbRequestResponseDto
 
-    @GET("listRequests")
+    @GET("/aip/rs/api/listRequests")
     suspend fun listRequests(@Query("uid")uid : String, @Query("orderType")orderType : Char, @Query("histo")histo:Int, @Query("numPg")numPg:Int): ListRequestResponseDto
 
-    @GET("viewRequestHead")
+    @GET("/aip/rs/api/viewRequestHead")
     suspend fun viewRequestHead(@Query("uid")uid : String, @Query("cddeid")cddeid : String, @Query("orderType")orderType:Char?): RequestResponseDto
 
-    @GET("listRequestLines")
+    @GET("/aip/rs/api/listRequestLines")
     suspend fun listRequestLines(@Query("uid")uid : String, @Query("cddeid")cddeid : String, @Query("orderType")orderType:Char, @Query("originalOrder")originalOrder: Int?, @Query("numPg")numPg:Int): RequestDetailResponseDto
 
-    @GET("listNotes")
+    @GET("/aip/rs/api/listNotes")
     suspend fun listNotes(@Query("uid")uid : String, @Query("cddeid")cddeid : String, @Query("deli")deli:Int, @Query("numPg")numPg:Int): NotesListResponseDto
 
-    @GET("getRequestLineChanges")
+    @GET("/aip/rs/api/getRequestLineChanges")
     suspend fun getRequestLineChanges(@Query("uid")uid : String, @Query("cddeid")cddeid : String, @Query("deli")deli:Int): RequestDetailModificationResponseDto
 
-    @GET("getText")
+    @GET("/aip/rs/api/getText")
     suspend fun getText(@Query("uid")uid : String, @Query("cddeid")cddeid : String, @Query("deli")deli:Int): RequestGetTextResponseDto
 
-    @GET("listAttachments")
+    @GET("/aip/rs/api/listAttachments")
     suspend fun listAttachments(@Query("uid")uid : String, @Query("cddeid")cddeid : String, @Query("deli")deli:Int, @Query("numPg")numPg:Int): ListAttachmentsResponseDto
 
-    @GET("getAttachment")
+    @GET("/aip/rs/api/getAttachment")
     suspend fun getAttachement(@Query("uid")uid : String, @Query("cddeid")cddeid : String, @Query("deli")deli:Int?, @Query("doct")doct:String, @Query("docName")docName:String): GetAttachmentResponseDto
 
-    @GET("listValidators")
+    @GET("/aip/rs/api/listValidators")
     suspend fun listValidators(@Query("uid")uid : String, @Query("cddeid")cddeid : String?, @Query("numPg")numPg:Int): ValidatorListResponseDto
 
-    @POST("validateRequest")
+    @POST("/aip/rs/api/validateRequest")
     suspend fun validateRequest(@Query("uid")uid : String, @Query("cddeid")cddeid : String, @Query("deli")deli:Int, @Query("orderType")orderType:Char, @Query("comment")comment:String): GenericResponseDto
 
-    @POST("denyRequest")
+    @POST("/aip/rs/api/denyRequest")
     suspend fun denyRequest(@Query("uid")uid : String, @Query("cddeid")cddeid : String, @Query("deli")deli:Int, @Query("orderType")orderType:Char, @Query("comment")comment:String): GenericResponseDto
 
-    @POST("explainRequest")
+    @POST("/aip/rs/api/explainRequest")
     suspend fun explainRequest(@Query("uid")uid : String, @Query("cddeid")cddeid : String, @Query("deli")deli:Int, @Query("orderType")orderType:Char, @Query("comment")comment:String): GenericResponseDto
 
-    @PUT("updateValidator")
+    @PUT("/aip/rs/api/updateValidator")
     suspend fun updateValidator(@Query("uid")uid : String, @Query("cddeid")cddeid : String, @Query("deli")deli:Int, @Query("valr")valr:String, @Query("comment")comment:String): GenericResponseDto
 
-    @GET("verifyUrl")
+    @GET("/aip/rs/api/verifyUrl")
     suspend fun verifyUrl(): GenericResponseDto
 
-    @POST("registerDevice")
+    @POST("/aip/rs/api/registerDevice")
     suspend fun registerDevice(@Query("uid")uid : String, @Query("type")type : Char, @Query("did")did:String): GenericResponseDto
 }

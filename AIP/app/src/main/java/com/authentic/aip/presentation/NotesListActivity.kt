@@ -79,7 +79,7 @@ class NotesListActivity:AppCompatActivity() {
     fun initview(listNotes : NotesList){
         var listNotesToFill : MutableList<Notes> = mutableListOf()
         if(listNotes.listNotes!=null){
-            for(note in listNotes.listNotes!!){
+            for(note in listNotes.listNotes){
                 if(note!=null){
                     listNotesToFill.add(note)
                 }
@@ -93,9 +93,9 @@ class NotesListActivity:AppCompatActivity() {
         val requestId = App.prefs?.preferences?.getString(EnumClass.PreferencesEnum.REQUEST_ID.toString(), null)
         if (sessionId != null && requestId != null) {
             if(deli!=null){
-                notesListViewModel.notesList(sessionId, requestId, deli!!, pageNumber)
+                notesListViewModel.notesList(this, sessionId, requestId, deli!!, pageNumber)
             }else{
-                notesListViewModel.notesList(sessionId, requestId, 0, pageNumber)
+                notesListViewModel.notesList(this, sessionId, requestId, 0, pageNumber)
             }
 
         }

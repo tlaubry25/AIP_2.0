@@ -6,11 +6,11 @@ import com.google.gson.annotations.SerializedName
 
 data class LoginDto(
     @SerializedName("name")
-    val name: String,
+    val name: String?,
     @SerializedName("uid")
-    val uid: String,
+    val uid: String?,
     @SerializedName("user")
-    val user: String
+    val user: String?
 )
 
 

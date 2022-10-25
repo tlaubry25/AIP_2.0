@@ -42,7 +42,7 @@ class RequestActivity:AppCompatActivity() {
         val cddeid = App.prefs?.preferences?.getString(EnumClass.PreferencesEnum.REQUEST_ID.toString(), null)
 
         if(sessionId!=null && cddeid!=null){
-            requestViewModel.request(sessionId, cddeid, '0')
+            requestViewModel.request(this, sessionId, cddeid, '0')
         }
         requestViewModel.requestDetailLiveData.observe(this){
             when{

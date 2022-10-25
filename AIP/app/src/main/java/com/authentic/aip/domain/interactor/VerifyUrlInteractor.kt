@@ -1,5 +1,7 @@
 package com.authentic.aip.domain.interactor
 
+import android.util.Log
+import com.authentic.aip.common.Constant
 import com.authentic.aip.common.Resource
 import com.authentic.aip.domain.repository.AppRepository
 import kotlinx.coroutines.flow.Flow
@@ -13,7 +15,6 @@ class VerifyUrlInteractor @Inject constructor(
 ){
     operator fun invoke(): Flow<Resource<Any>> = flow {
         try {
-
             emit(Resource.Loading<Any>())
             val any = repository.verifyUrl().data
             emit(Resource.Success<Any>(any))

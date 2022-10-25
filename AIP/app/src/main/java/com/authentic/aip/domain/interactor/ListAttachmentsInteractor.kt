@@ -16,7 +16,7 @@ class ListAttachmentsInteractor @Inject constructor(
     operator fun invoke(uid: String, cddeid: String, deli: Int, numPg: Int): Flow<Resource<ListAttachments>> = flow {
         try {
             emit(Resource.Loading<ListAttachments>())
-            val listAttachments = repository.listAttachements(uid = uid, cddeid = cddeid, deli = deli, numPg = numPg).data.toListAttachments()
+            val listAttachments = repository.listAttachments(uid = uid, cddeid = cddeid, deli = deli, numPg = numPg).data.toListAttachments()
             emit(Resource.Success<ListAttachments>(listAttachments))
         } catch (e: HttpException) {
             emit(Resource.Error<ListAttachments>(e.localizedMessage ?: "An unexpected error happened"))

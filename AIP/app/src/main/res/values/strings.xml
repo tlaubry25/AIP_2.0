@@ -98,4 +98,6 @@
     <!-- Notifications -->
     <string name="notification_new_data">You have a new request. Please refresh.</string>
 
+    <string name="button_load_text">Load file</string>
+
 </resources>

@@ -9,4 +9,7 @@ object MessageManager {
         val toast = Toast.makeText(context, context.getString(idString), Toast.LENGTH_SHORT)
         toast.show()
     }
+    fun showNotification(){
+
+    }
 }

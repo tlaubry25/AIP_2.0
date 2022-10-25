@@ -18,6 +18,7 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
+val interceptorHost = HostSelectionInterceptor()
 
     @Provides
     @Singleton
@@ -34,6 +35,7 @@ object AppModule {
     fun provideGlobalInterceptorOkHttpClient(): OkHttpClient = OkHttpClient.Builder()
         .addInterceptor(AddCookieInterceptor())
         .addInterceptor(ReceivedCookieInterceptor())
+        .addInterceptor(interceptorHost)
         .build()
 
     @Provides

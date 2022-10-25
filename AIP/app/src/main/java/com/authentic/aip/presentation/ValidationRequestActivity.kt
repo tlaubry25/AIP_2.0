@@ -67,15 +67,15 @@ class ValidationRequestActivity : AppCompatActivity() {
             when(choiceValidation){
                 EnumClass.ActionValidationEnum.VALID->{
                     if(sessionId!=null && cddeid!=null)
-                        validationRequestViewModel.validateRequest(sessionId, cddeid, 0, 'A', etCommentaire.text.toString())
+                        validationRequestViewModel.validateRequest(this, sessionId, cddeid, 0, 'A', etCommentaire.text.toString())
                 }
                 EnumClass.ActionValidationEnum.EXPLAIN->{
                     if(sessionId!=null && cddeid!=null)
-                        validationRequestViewModel.explainRequest(sessionId, cddeid, 0, 'A', etCommentaire.text.toString())
+                        validationRequestViewModel.explainRequest(this, sessionId, cddeid, 0, 'A', etCommentaire.text.toString())
                 }
                 EnumClass.ActionValidationEnum.REFUSE->{
                     if(sessionId!=null && cddeid!=null)
-                        validationRequestViewModel.denyRequest(sessionId, cddeid, 0, 'A', etCommentaire.text.toString())
+                        validationRequestViewModel.denyRequest(this, sessionId, cddeid, 0, 'A', etCommentaire.text.toString())
                 }
                 else->{}
             }
@@ -87,7 +87,7 @@ class ValidationRequestActivity : AppCompatActivity() {
                     progressBar.visibility = View.VISIBLE
                     Log.d("TLA", "STATE LOADING")
                 }
-                it.error.isNotEmpty() -> {
+                it.isError!=null -> {
                     progressBar.visibility = View.GONE
                     Log.d("TLA", "STATE ERROR")
                 }
@@ -112,7 +112,7 @@ class ValidationRequestActivity : AppCompatActivity() {
                     progressBar.visibility = View.VISIBLE
                     Log.d("TLA", "STATE LOADING")
                 }
-                it.error.isNotEmpty() -> {
+                it.isError!=null -> {
                     progressBar.visibility = View.GONE
                     Log.d("TLA", "STATE ERROR")
                 }
@@ -136,7 +136,7 @@ class ValidationRequestActivity : AppCompatActivity() {
                     progressBar.visibility = View.VISIBLE
                     Log.d("TLA", "STATE LOADING")
                 }
-                it.error.isNotEmpty() -> {
+                it.isError!=null -> {
                     progressBar.visibility = View.GONE
                     Log.d("TLA", "STATE ERROR")
                 }

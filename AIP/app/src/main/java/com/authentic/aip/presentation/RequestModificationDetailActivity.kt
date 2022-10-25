@@ -38,7 +38,7 @@ class RequestModificationDetailActivity:AppCompatActivity() {
         deli = intent.getIntExtra("deli", 0)
         lineType = intent.getStringExtra("lineType")
         if(sessionId!=null && cddeid!=null && deli!=null){
-            requestDetailModificationViewModel.getRequestChanges(sessionId, cddeid, deli!!)
+            requestDetailModificationViewModel.getRequestChanges(this, sessionId, cddeid, deli!!)
         }
 
 

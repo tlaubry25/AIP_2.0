@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "890526607201",
+    "project_id": "aip-authentic",
+    "storage_bucket": "aip-authentic.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:890526607201:android:b0cda834ec02917c484720",
+        "android_client_info": {
+          "package_name": "com.authentic.aip"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "890526607201-p12lol0ap1oboisvvonr52mu46b4dboj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABNTSLiIPavzvh1eooR_wljta7bv96BcQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "890526607201-p12lol0ap1oboisvvonr52mu46b4dboj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

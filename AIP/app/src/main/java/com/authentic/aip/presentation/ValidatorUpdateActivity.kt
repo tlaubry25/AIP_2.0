@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.*
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.size
 import com.authentic.aip.R
 import com.authentic.aip.common.EnumClass
 import com.authentic.aip.domain.model.Validator
@@ -21,7 +22,6 @@ class ValidatorUpdateActivity:AppCompatActivity() {
     private val listValidatorsViewModel: ListValidatorsViewModel by viewModels()
     private var pageNumber = 1
     private lateinit var arrayAdapter : ArrayAdapter<Validator>
-    var selectedValidator : Validator? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,9 +58,12 @@ class ValidatorUpdateActivity:AppCompatActivity() {
             }
             spinnerList.setOnScrollChangeListener(object : View.OnScrollChangeListener{
                 override fun onScrollChange(p0: View?, p1: Int, p2: Int, p3: Int, p4: Int) {
-
+                    val size = spinnerList.size
+                    if(spinnerList.lastVisiblePosition == size-1){
+                        pageNumber++
+                        loadValidators()
+                    }
                 }
-
             })
 
             listValidatorsViewModel.updateValidatorLiveData.observe(this){
@@ -68,7 +71,7 @@ class ValidatorUpdateActivity:AppCompatActivity() {
                     it.isLoading->{
                         progressBar.visibility = View.VISIBLE
                         Log.d("TLA", "STATE LOADING") }
-                    it.error.isNotEmpty() -> {
+                    it.isError!=null -> {
                         progressBar.visibility = View.GONE
                         Log.d("TLA", "STATE ERROR") }
                     it.data!=null ->{
@@ -95,7 +98,7 @@ class ValidatorUpdateActivity:AppCompatActivity() {
                 if(sessionId !=null && cddeid != null && validator != null){
                     Log.d("TLA", "uid : "+sessionId+" cddeid : "+cddeid+" user : "+validator?.user)
                     if(validator.user!=null){
-                        listValidatorsViewModel.updateValidator(sessionId, cddeid, 0, validator.user, "")
+                        listValidatorsViewModel.updateValidator(this, sessionId, cddeid, 0, validator.user, "")
                     }
                 }
 
@@ -119,7 +122,7 @@ class ValidatorUpdateActivity:AppCompatActivity() {
         val sessionId = App.prefs?.preferences?.getString(EnumClass.PreferencesEnum.SESSION_ID.toString(), null)
         val requestId = App.prefs?.preferences?.getString(EnumClass.PreferencesEnum.REQUEST_ID.toString(), null)
         if (sessionId != null && requestId != null) {
-            listValidatorsViewModel.getListValidators(sessionId, requestId, pageNumber)
+            listValidatorsViewModel.getListValidators(this, sessionId, requestId, pageNumber)
         }
     }
 }

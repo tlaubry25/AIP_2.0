@@ -93,7 +93,7 @@ class ListAttachmentsActivity:AppCompatActivity(), ListAttachmentsAdapter.ItemCl
     private fun initview(listAttachments : ListAttachments){
         var listAttachmentsToFill : MutableList<Attachments> = mutableListOf()
         if(listAttachments.listAttachments!=null){
-            for(attachment in listAttachments.listAttachments!!){
+            for(attachment in listAttachments.listAttachments){
                if(attachment!=null){
                    listAttachmentsToFill.add(attachment)
                }
@@ -112,9 +112,9 @@ class ListAttachmentsActivity:AppCompatActivity(), ListAttachmentsAdapter.ItemCl
         val requestId = App.prefs?.preferences?.getString(EnumClass.PreferencesEnum.REQUEST_ID.toString(), null)
         if (sessionId != null && requestId != null) {
             if(deli!=null){
-                listAttachmentsViewModel.listAttachments(sessionId, requestId, deli!!, pageNumber)
+                listAttachmentsViewModel.listAttachments(this, sessionId, requestId, deli!!, pageNumber)
             }else{
-                listAttachmentsViewModel.listAttachments(sessionId, requestId, 0, pageNumber)
+                listAttachmentsViewModel.listAttachments(this, sessionId, requestId, 0, pageNumber)
             }
 
         }
@@ -122,13 +122,11 @@ class ListAttachmentsActivity:AppCompatActivity(), ListAttachmentsAdapter.ItemCl
     override fun onAttachmentClick(attachment: Attachments?) {
         if(attachment!=null){
             if(!attachment.type.isNullOrEmpty()){
-                if(attachment.type.equals("zip")){
-                    MessageManager.showToast(this, R.string.attachment_format_incompatible)
-                }else{
-                    val newActivityIntent = Intent(this, DocumentViewerActivity::class.java)
-                    newActivityIntent.putExtra("attachment", attachment)
-                    startActivity(newActivityIntent)
-                }
+                val newActivityIntent = Intent(this, DocumentViewerActivity::class.java)
+                newActivityIntent.putExtra("attachment", attachment)
+                startActivity(newActivityIntent)
+            }else{
+                MessageManager.showToast(this, R.string.attachment_format_incompatible)
             }
         }
     }

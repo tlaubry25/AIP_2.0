@@ -104,7 +104,7 @@ class ListRequestActivity : AppCompatActivity(), RequestListAdapter.ItemClickLis
     private fun initview(listRequest: ListRequest){
         var listRequestToFill : MutableList<POs> = mutableListOf()
         if(listRequest.listPOs!=null){
-            for(po in listRequest.listPOs!!){
+            for(po in listRequest.listPOs){
                 if(po!=null){
                     listRequestToFill.add(po)
                 }
@@ -122,9 +122,9 @@ class ListRequestActivity : AppCompatActivity(), RequestListAdapter.ItemClickLis
 
         if (sessionId != null && typeView!=null) {
             if(typeView == EnumClass.TypeRequestEnum.ONGOING.toString()){
-                listRequestViewModel.listRequest(sessionId, '0', 0, pageNumber)
+                listRequestViewModel.listRequest(this, sessionId, '0', 0, pageNumber)
             }else{
-                listRequestViewModel.listRequest(sessionId, '0', 1, pageNumber)
+                listRequestViewModel.listRequest(this, sessionId, '0', 1, pageNumber)
             }
             //listRequestViewModel.listRequest(sessionId, '0', false, pageNumber)
         }

@@ -127,7 +127,7 @@ class RequestDetailActivity:AppCompatActivity(), RequestDetailAdapter.ItemClickL
         val sessionId = App.prefs?.preferences?.getString(EnumClass.PreferencesEnum.SESSION_ID.toString(), null)
         val cddeid = App.prefs?.preferences?.getString(EnumClass.PreferencesEnum.REQUEST_ID.toString(), null)
         if (sessionId != null && cddeid != null) {
-            requestDetailViewModel.requestDetail(sessionId, cddeid, '0', originalOrder, pageNumber)
+            requestDetailViewModel.requestDetail(this, sessionId, cddeid, '0', originalOrder, pageNumber)
         }
     }
 
@@ -139,7 +139,7 @@ class RequestDetailActivity:AppCompatActivity(), RequestDetailAdapter.ItemClickL
     private fun initview(requestDetail: RequestDetail){
         var listDedlineToFill : MutableList<DedLine> = mutableListOf()
         if(requestDetail.listDedLine!=null){
-            for(dedline in requestDetail.listDedLine!!){
+            for(dedline in requestDetail.listDedLine){
                 if(dedline!=null){
                     if(dedline.requestType=="M"){
                         requestModified = true

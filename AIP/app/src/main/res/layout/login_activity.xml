@@ -36,7 +36,10 @@
             android:id="@+id/et_identifier"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/login_identifier" />
+            android:hint="@string/login_identifier"
+            android:inputType="text"
+            android:maxLines="1"
+            android:nextFocusDown="@id/et_password"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -61,6 +64,8 @@
             android:layout_height="wrap_content"
             android:hint="@string/login_password"
             android:inputType="textPassword"
+            android:maxLines="1"
+            android:nextFocusDown="@id/til_adress"
             />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -93,7 +98,10 @@
                 android:id="@+id/et_adress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/login_adress" />
+                android:hint="@string/login_adress"
+                android:maxLines="1"
+                android:inputType="text"
+                android:nextFocusDown="@id/et_port"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -117,7 +125,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/login_port"
-                android:inputType="number"/>
+                android:maxLines="1"
+                android:inputType="number"
+                android:imeOptions="actionDone"/>
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 

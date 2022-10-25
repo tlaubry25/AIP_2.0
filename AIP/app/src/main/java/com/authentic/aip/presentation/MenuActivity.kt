@@ -24,7 +24,7 @@ class MenuActivity : AppCompatActivity(){
         this.supportActionBar?.hide()
         val sessionId = prefs?.preferences?.getString(EnumClass.PreferencesEnum.SESSION_ID.toString(), null)
         if(!sessionId.isNullOrEmpty()){
-            menuViewModel.getNbRequest(sessionId)
+            menuViewModel.getNbRequest(this, sessionId)
         }
         menuViewModel.menuLiveData.observe(this){
             when{

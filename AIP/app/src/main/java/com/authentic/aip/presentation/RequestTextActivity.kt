@@ -38,7 +38,7 @@ class RequestTextActivity : AppCompatActivity() {
         val requestId = App.prefs?.preferences?.getString(EnumClass.PreferencesEnum.REQUEST_ID.toString(), null)
         if(!sessionId.isNullOrEmpty() && !requestId.isNullOrEmpty()){
             if(deli!=null){
-                requestTextViewModel.getNbRequest(sessionId, requestId, deli!!)
+                requestTextViewModel.getNbRequest(this, sessionId, requestId, deli!!)
             }
         }
         requestTextViewModel.requestTextLiveData.observe(this){

@@ -30,10 +30,10 @@ enum class StatusRequestEnum(val statusCode : String){
     ANNULEE("99")
 }
 enum class TypeAttachmentEnum(){
-    WORD,
+    DOCX,
     PDF,
     ZIP,
-    EXCEL,
+    XLSX,
     TXT
 }
 enum class ActionValidationEnum{

@@ -39,7 +39,7 @@
     <!-- requestDetail -->
     <string name="request_detail_total_price">Total ligne : </string>
     <string name="request_detail_quantity">Quantité : </string>
-    <string name="request_detail_unitary_price"> - Montant : </string>MLABUR
+    <string name="request_detail_unitary_price"> - Montant : </string>
     <string name="request_detail_data_price">%1$s EUR</string>
     <!--    section    -->
     <string name="section_attachement"> Pièces jointes (%1$d)</string>
@@ -96,4 +96,6 @@
 
     <!-- Notifications -->
     <string name="notification_new_data">Vous avez une nouvelle demande, pensez à rafraîchir vos données</string>
+
+    <string name="button_load_text">Charger</string>
 </resources>

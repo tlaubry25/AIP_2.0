@@ -61,10 +61,10 @@ class ListAttachmentsAdapter : RecyclerView.Adapter<ListAttachmentsAdapter.Attac
             EnumClass.TypeAttachmentEnum.PDF.toString().lowercase()->{
                 drawableTypeAttachments = ContextCompat.getDrawable(context!!, R.drawable.pdf)
             }
-            EnumClass.TypeAttachmentEnum.EXCEL.toString().lowercase()->{
+            EnumClass.TypeAttachmentEnum.XLSX.toString().lowercase()->{
                 drawableTypeAttachments = ContextCompat.getDrawable(context!!, R.drawable.excel)
             }
-            EnumClass.TypeAttachmentEnum.WORD.toString().lowercase()->{
+            EnumClass.TypeAttachmentEnum.DOCX.toString().lowercase()->{
                 drawableTypeAttachments = ContextCompat.getDrawable(context!!, R.drawable.word)
             }
             EnumClass.TypeAttachmentEnum.ZIP.toString().lowercase()->{

@@ -48,33 +48,19 @@ class RequestActivity:AppCompatActivity() {
             when{
                 it.isLoading->{
                     progressBar.visibility = View.VISIBLE
-                    Log.d("TLA", "STATE LOADING")
+                    Log.d("AIP", "call request STATE LOADING")
                 }
                 it.error.isNotEmpty() -> {
                     progressBar.visibility = View.GONE
-                    Log.d("TLA", "STATE ERROR")
+                    Log.d("AIP", "call request STATE ERROR")
                 }
                 it.requestData!=null ->{
                     progressBar.visibility = View.GONE
-                    Log.d("TLA", "STATE SUCCESS")
+                    Log.d("AIP", "call request STATE SUCCESS")
                     initView(it.requestData)
                 }
             }
         }
-
-/*
-        val notesTextview = findViewById<TextView>(R.id.tv_section_notes)
-        notesTextview.setOnClickListener {
-            val newActivityIntent = Intent(this, NotesListActivity::class.java)
-            startActivity(newActivityIntent)
-        }
-*/
-
-/*        val attachmentsTextview = findViewById<TextView>(R.id.tv_section_attachement)
-        attachmentsTextview.setOnClickListener {
-            val newActivityIntent = Intent(this, ListAttachmentsActivity::class.java)
-            startActivity(newActivityIntent)
-        }*/
 
         val textTextview = findViewById<TextView>(R.id.tv_section_detail)
         textTextview.setOnClickListener {

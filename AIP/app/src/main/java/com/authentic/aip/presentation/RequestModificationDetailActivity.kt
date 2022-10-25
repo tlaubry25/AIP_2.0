@@ -46,13 +46,13 @@ class RequestModificationDetailActivity:AppCompatActivity() {
             when{
                 it.isLoading->{
                     progressBar.visibility = View.VISIBLE
-                    Log.d("TLA", "STATE LOADING") }
+                    Log.d("AIP", "call getRequestChanges STATE LOADING") }
                 it.error.isNotEmpty() -> {
                     progressBar.visibility = View.GONE
-                    Log.d("TLA", "STATE ERROR") }
+                    Log.d("AIP", "call getRequestChanges STATE ERROR") }
                 it.requestModificationData!=null ->{
                     progressBar.visibility = View.GONE
-                    Log.d("TLA", "STATE SUCCESS")
+                    Log.d("AIP", "call getRequestChanges STATE SUCCESS")
 
                     initview(it.requestModificationData)
                 }

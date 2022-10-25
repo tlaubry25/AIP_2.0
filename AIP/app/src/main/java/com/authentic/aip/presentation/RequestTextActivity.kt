@@ -38,20 +38,20 @@ class RequestTextActivity : AppCompatActivity() {
         val requestId = App.prefs?.preferences?.getString(EnumClass.PreferencesEnum.REQUEST_ID.toString(), null)
         if(!sessionId.isNullOrEmpty() && !requestId.isNullOrEmpty()){
             if(deli!=null){
-                requestTextViewModel.getNbRequest(this, sessionId, requestId, deli!!)
+                requestTextViewModel.getText(this, sessionId, requestId, deli!!)
             }
         }
         requestTextViewModel.requestTextLiveData.observe(this){
             when{
                 it.isLoading->{
                     progressBar.visibility = View.VISIBLE
-                    Log.d("TLA", "STATE LOADING") }
+                    Log.d("AIP", "call getText STATE LOADING") }
                 it.error.isNotEmpty() -> {
                     progressBar.visibility = View.GONE
-                    Log.d("TLA", "STATE ERROR") }
+                    Log.d("AIP", "call getText STATE ERROR") }
                 it.requestText!=null ->{
                     progressBar.visibility = View.GONE
-                    Log.d("TLA", "STATE SUCCESS")
+                    Log.d("AIP", "call getText STATE SUCCESS")
                     initview(it.requestText)
                 }
             }

@@ -17,7 +17,7 @@ class ValidateRequestInteractor @Inject constructor(
 
             emit(Resource.Loading<Any>())
             val any = repository.validateRequest(uid =  uid, cddeid = cddeid, deli = deli, orderType = orderType, comment = comment).data
-            Log.d("TLA", ""+any)
+            Log.d("AIP", ""+any)
             emit(Resource.Success<Any>(any))
         } catch (e: HttpException) {
             emit(Resource.Error<Any>(e.localizedMessage ?: "An unexpected error happened"))

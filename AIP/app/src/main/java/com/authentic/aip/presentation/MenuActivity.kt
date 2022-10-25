@@ -29,13 +29,13 @@ class MenuActivity : AppCompatActivity(){
         menuViewModel.menuLiveData.observe(this){
             when{
                 it.isLoading->{
-                    Log.d("TLA", "STATE LOADING")
+                    Log.d("AIP", "call getNbRequest STATE LOADING")
                 }
                 it.error.isNotEmpty() -> {
-                    Log.d("TLA", "STATE ERROR")
+                    Log.d("AIP", "call getNbRequest STATE ERROR")
                 }
                 it.nbRequest!=null ->{
-                    Log.d("TLA", "STATE SUCCESS")
+                    Log.d("AIP", "call getNbRequest STATE SUCCESS")
                     if(it.nbRequest>0){
                         val clNotification = findViewById<ConstraintLayout>(R.id.cl_number_request_notification)
                         val numberInNotification = findViewById<TextView>(R.id.tv_notification_number)

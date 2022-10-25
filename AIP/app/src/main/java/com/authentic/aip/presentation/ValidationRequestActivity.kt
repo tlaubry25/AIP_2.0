@@ -85,20 +85,20 @@ class ValidationRequestActivity : AppCompatActivity() {
             when{
                 it.isLoading->{
                     progressBar.visibility = View.VISIBLE
-                    Log.d("TLA", "STATE LOADING")
+                    Log.d("AIP", "call validateRequest STATE LOADING")
                 }
                 it.isError!=null -> {
                     progressBar.visibility = View.GONE
-                    Log.d("TLA", "STATE ERROR")
+                    Log.d("AIP", "call validateRequest STATE ERROR")
                 }
                 it.data!=null ->{
                     progressBar.visibility = View.GONE
-                    Log.d("TLA", "STATE SUCCESS")
+                    Log.d("AIP", "call validateRequest STATE SUCCESS")
                     //WEBSERVICE SUCCESS, GOTO LISTREQUEST
                 }
                 else->{
                     progressBar.visibility = View.GONE
-                    Log.d("TLA", "STATE ELSE")
+                    Log.d("AIP", "call validateRequest STATE ELSE")
                     //GOTO LISTREQUEST
                     val newActivityIntent = Intent(this, ListRequestActivity::class.java)
                     newActivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
@@ -110,17 +110,19 @@ class ValidationRequestActivity : AppCompatActivity() {
             when{
                 it.isLoading->{
                     progressBar.visibility = View.VISIBLE
-                    Log.d("TLA", "STATE LOADING")
+                    Log.d("AIP", "call explainRequest STATE LOADING")
                 }
                 it.isError!=null -> {
                     progressBar.visibility = View.GONE
-                    Log.d("TLA", "STATE ERROR")
+                    Log.d("AIP", "call explainRequest STATE ERROR")
                 }
                 it.data!=null ->{
                     progressBar.visibility = View.GONE
+                    Log.d("AIP", "call explainRequest STATE SUCCESS")
                     //WEBSERVICE SUCCESS, GOTO LISTREQUEST
                 }
                 else->{
+                    Log.d("AIP", "call explainRequest STATE NULL")
                     progressBar.visibility = View.GONE
                     //GOTO LISTREQUEST
                     val newActivityIntent = Intent(this, ListRequestActivity::class.java)
@@ -134,18 +136,20 @@ class ValidationRequestActivity : AppCompatActivity() {
             when{
                 it.isLoading->{
                     progressBar.visibility = View.VISIBLE
-                    Log.d("TLA", "STATE LOADING")
+                    Log.d("AIP", "call denyRequest STATE LOADING")
                 }
                 it.isError!=null -> {
                     progressBar.visibility = View.GONE
-                    Log.d("TLA", "STATE ERROR")
+                    Log.d("AIP", "call denyRequest STATE ERROR")
                 }
                 it.data!=null ->{
                     progressBar.visibility = View.GONE
+                    Log.d("AIP", "call denyRequest STATE SUCCESS")
                     //WEBSERVICE SUCCESS, GOTO LISTREQUEST
                 }
                 else->{
                     progressBar.visibility = View.GONE
+                    Log.d("AIP", "call denyRequest STATE NULL")
                     //GOTO LISTREQUEST
                     val newActivityIntent = Intent(this, ListRequestActivity::class.java)
                     newActivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)

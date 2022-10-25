@@ -51,36 +51,18 @@ class ListAttachmentsActivity:AppCompatActivity(), ListAttachmentsAdapter.ItemCl
             when{
                 it.isLoading->{
                     progressBar.visibility = View.VISIBLE
-                    Log.d("TLA", "STATE LOADING") }
+                    Log.d("AIP", "call listAttachments STATE LOADING") }
                 it.error.isNotEmpty() -> {
                     progressBar.visibility = View.GONE
-                    Log.d("TLA", "STATE ERROR") }
+                    Log.d("AIP", "call listAttachments STATE ERROR") }
                 it.listAttachments!=null ->{
                     progressBar.visibility = View.GONE
-                    Log.d("TLA", "STATE SUCCESS")
+                    Log.d("AIP", "call listAttachments STATE SUCCESS")
                     initview(it.listAttachments)
                 }
             }
         }
-/*        listAttachmentsViewModel.getAttachmentsLiveData.observe(this){
-            when{
-                it.isLoading->{
-                    progressBar.visibility = View.VISIBLE
-                    Log.d("TLA", "STATE LOADING") }
-                it.error.isNotEmpty() -> {
-                    progressBar.visibility = View.GONE
-                    Log.d("TLA", "STATE ERROR") }
-                it.attachmentData!=null ->{
-                    Log.d("TLA", "STATE SUCCESS")
-                    progressBar.visibility = View.GONE
-                    val newActivityIntent = Intent(this, DocumentViewerActivity::class.java)
-                    newActivityIntent.putExtra("contentType", attachmentType)
-                    newActivityIntent.putExtra("contentData", it.attachmentData)
-                    newActivityIntent.putExtra("contentTitle", attachmentTitle)
-                    startActivity(newActivityIntent)
-                }
-            }
-        }*/
+
         rv_listAttachments.addOnScrollListener(object : RecyclerView.OnScrollListener(){
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)

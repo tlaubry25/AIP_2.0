@@ -44,13 +44,15 @@ class MainActivity:AppCompatActivity() {
             when{
                 it.isLoading->{
                     progressBar.visibility = View.VISIBLE
+                    Log.d("AIP", "call login STATE LOADING")
                 }
                 it.error.isNotEmpty() -> {
                     progressBar.visibility = View.GONE
-                    MessageManager.showToast(this, R.string.login_ws_error)
+                    Log.d("AIP", "call login STATE ERROR")
                 }
                 it.loginObject!=null ->{
                     val uidEditor = prefs?.preferences?.edit()
+                    Log.d("AIP", "call login STATE SUCCESS")
                     uidEditor?.putString(EnumClass.PreferencesEnum.SESSION_ID.toString(), it.loginObject.uid)
                     uidEditor?.commit()
 
@@ -67,17 +69,20 @@ class MainActivity:AppCompatActivity() {
             loginViewModel.registerDeviceLiveData.observe(this){
                 when{
                     it.isLoading->{
-
+                        Log.d("AIP", "call registerDevice STATE LOADING")
                     }
                     it.isError!=null -> {
                         progressBar.visibility = View.GONE
+                        Log.d("AIP", "call registerDevice STATE ERROR")
                         MessageManager.showToast(this, R.string.ws_error_unknown)
                     }
                     it.data!=null ->{
                         progressBar.visibility = View.GONE
+                        Log.d("AIP", "call registerDevice STATE SUCCESS")
                     }
                     else->{
                         progressBar.visibility = View.GONE
+                        Log.d("AIP", "call registerDevice STATE NULL")
                         MessageManager.showToast(this, R.string.login_ws_ok)
                         val toMenuActivity = Intent(this, MenuActivity::class.java)
                         toMenuActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
@@ -91,18 +96,18 @@ class MainActivity:AppCompatActivity() {
                 when{
                     it.isLoading->{
                         progressBar.visibility = View.VISIBLE
-                        Log.d("TLA", "call verifyUrl LOADING")
+                        Log.d("AIP", "call verifyUrl STATE LOADING")
                     }
                     it.isError!=null -> {
                         progressBar.visibility = View.GONE
-                        Log.d("TLA", "call verifyUrl ERROR")
+                        Log.d("AIP", "call verifyUrl STATE ERROR")
                         MessageManager.showToast(this, R.string.login_ws_error)
                     }
                     it.data!=null ->{
                         progressBar.visibility = View.GONE
                     }
                     else->{
-                        Log.d("TLA", "call verifyUrl OK")
+                        Log.d("AIP", "call verifyUrl STATE OK")
                         progressBar.visibility = View.GONE
                         MessageManager.showToast(this, R.string.login_ws_ok)
                     }

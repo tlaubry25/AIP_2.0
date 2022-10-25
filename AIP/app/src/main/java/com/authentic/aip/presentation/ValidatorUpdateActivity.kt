@@ -45,13 +45,13 @@ class ValidatorUpdateActivity:AppCompatActivity() {
             when{
                 it.isLoading->{
                     progressBar.visibility = View.VISIBLE
-                    Log.d("TLA", "STATE LOADING") }
+                    Log.d("AIP", "call getListValidators STATE LOADING") }
                 it.error.isNotEmpty() -> {
                     progressBar.visibility = View.GONE
-                    Log.d("TLA", "STATE ERROR") }
+                    Log.d("AIP", "call getListValidators STATE ERROR") }
                 it.listValidators!=null ->{
                     progressBar.visibility = View.GONE
-                    Log.d("TLA", "STATE SUCCESS")
+                    Log.d("AIP", "call getListValidators STATE SUCCESS")
 
                     initview(it.listValidators)
                 }
@@ -70,16 +70,17 @@ class ValidatorUpdateActivity:AppCompatActivity() {
                 when{
                     it.isLoading->{
                         progressBar.visibility = View.VISIBLE
-                        Log.d("TLA", "STATE LOADING") }
+                        Log.d("AIP", "call updateValidator STATE LOADING") }
                     it.isError!=null -> {
                         progressBar.visibility = View.GONE
-                        Log.d("TLA", "STATE ERROR") }
+                        Log.d("AIP", "call updateValidator STATE ERROR") }
                     it.data!=null ->{
                         progressBar.visibility = View.GONE
-                        Log.d("TLA", "STATE SUCCESS")
+                        Log.d("AIP", "call updateValidator STATE SUCCESS")
                     }
                     else->{
                         progressBar.visibility = View.GONE
+                        Log.d("AIP", "call updateValidator STATE NULL")
                         //GOTO LISTREQUEST
                         val newActivityIntent = Intent(this, ListRequestActivity::class.java)
                         newActivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
@@ -96,7 +97,6 @@ class ValidatorUpdateActivity:AppCompatActivity() {
                 val sessionId = App.prefs?.preferences?.getString(EnumClass.PreferencesEnum.SESSION_ID.toString(), null)
                 val cddeid = App.prefs?.preferences?.getString(EnumClass.PreferencesEnum.REQUEST_ID.toString(), null)
                 if(sessionId !=null && cddeid != null && validator != null){
-                    Log.d("TLA", "uid : "+sessionId+" cddeid : "+cddeid+" user : "+validator?.user)
                     if(validator.user!=null){
                         listValidatorsViewModel.updateValidator(this, sessionId, cddeid, 0, validator.user, "")
                     }

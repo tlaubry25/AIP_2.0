@@ -98,13 +98,13 @@ class RequestDetailActivity:AppCompatActivity(), RequestDetailAdapter.ItemClickL
             when{
                 it.isLoading->{
                     progressBar.visibility = View.VISIBLE
-                    Log.d("TLA", "STATE LOADING") }
+                    Log.d("AIP", "call requestDetail STATE LOADING") }
                 it.error.isNotEmpty() -> {
                     progressBar.visibility = View.GONE
-                    Log.d("TLA", "STATE ERROR") }
+                    Log.d("AIP", "call requestDetail STATE ERROR") }
                 it.requestDetailData!=null ->{
                     progressBar.visibility = View.GONE
-                    Log.d("TLA", "STATE SUCCESS")
+                    Log.d("AIP", "call requestDetail STATE SUCCESS")
 
                     initview(it.requestDetailData)
                 }

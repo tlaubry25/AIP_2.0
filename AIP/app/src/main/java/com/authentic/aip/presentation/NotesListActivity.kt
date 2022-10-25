@@ -52,13 +52,13 @@ class NotesListActivity:AppCompatActivity() {
             when{
                 it.isLoading->{
                     progressBar.visibility = View.VISIBLE
-                    Log.d("TLA", "STATE LOADING") }
+                    Log.d("AIP", "call notesList STATE LOADING") }
                 it.error.isNotEmpty() -> {
                     progressBar.visibility = View.GONE
-                    Log.d("TLA", "STATE ERROR") }
+                    Log.d("AIP", "call notesList STATE ERROR") }
                 it.notesList!=null ->{
                     progressBar.visibility = View.GONE
-                    Log.d("TLA", "STATE SUCCESS")
+                    Log.d("AIP", "call notesList STATE SUCCESS")
                     if(it.notesList.listNotes!=null){
                         initview(it.notesList)
                     }

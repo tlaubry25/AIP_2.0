@@ -78,15 +78,15 @@ class DocumentViewerActivity:AppCompatActivity() {
             when{
                 it.isLoading->{
                     progressBar.visibility = View.VISIBLE
-                    Log.d("TLA", "STATE LOADING")
+                    Log.d("AIP", "call getAttachment STATE LOADING")
                 }
                 it.error.isNotEmpty() -> {
                     progressBar.visibility = View.GONE
-                    Log.d("TLA", "STATE ERROR") }
+                    Log.d("AIP", "call getAttachment STATE ERROR") }
                 it.attachmentData!=null ->{
                     progressBar.visibility = View.GONE
                     loadButton.visibility = View.VISIBLE
-                    Log.d("TLA", "STATE SUCCESS")
+                    Log.d("AIP", "call getAttachment STATE SUCCESS")
                     initView(it.attachmentData)
                 }
             }

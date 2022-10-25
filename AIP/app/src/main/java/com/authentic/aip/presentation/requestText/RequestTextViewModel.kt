@@ -21,7 +21,7 @@ class RequestTextViewModel @Inject constructor(
     private val _requestTextData = MutableLiveData<RequestTextState>()
     val requestTextLiveData : LiveData<RequestTextState> = _requestTextData
 
-    fun getNbRequest(context: Context, uid : String, cddeid : String, deli:Int){
+    fun getText(context: Context, uid : String, cddeid : String, deli:Int){
         requestTextInteractor(uid, cddeid, deli).onEach { result->
             when(result){
                 is Resource.Error ->{ _requestTextData.value = RequestTextState(error = result.message?:"ErrorWebservice")

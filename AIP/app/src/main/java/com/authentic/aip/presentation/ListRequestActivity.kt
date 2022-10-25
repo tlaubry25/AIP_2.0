@@ -72,13 +72,13 @@ class ListRequestActivity : AppCompatActivity(), RequestListAdapter.ItemClickLis
             when{
                 it.isLoading->{
                     progressBar.visibility = View.VISIBLE
-                    Log.d("TLA", "STATE LOADING") }
+                    Log.d("AIP", "call listRequest STATE LOADING") }
                 it.error.isNotEmpty() -> {
                     progressBar.visibility = View.GONE
-                    Log.d("TLA", "STATE ERROR") }
+                    Log.d("AIP", "call listRequest STATE ERROR") }
                 it.listRequest!=null ->{
                     progressBar.visibility = View.GONE
-                    Log.d("TLA", "STATE SUCCESS")
+                    Log.d("AIP", "call listRequest STATE SUCCESS")
 
                     initview(it.listRequest)
                 }
@@ -135,7 +135,7 @@ class ListRequestActivity : AppCompatActivity(), RequestListAdapter.ItemClickLis
     }
 
     override fun onRequestClick(request: POs?) {
-        Log.d("TLA", "OnRequestClick Request")
+        Log.d("AIP", "OnRequestClick Request")
         if(request!=null){
             val uidEditor = App.prefs?.preferences?.edit()
             uidEditor?.putString(EnumClass.PreferencesEnum.REQUEST_ID.toString(), request.cddeid)

@@ -25,5 +25,7 @@ class App : Application() {
             // Get new FCM registration token
             firebaseToken = task.result.toString()
         })
+        val receiver = FirebaseMessageReceiver()
+
     }
 }

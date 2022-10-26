@@ -57,6 +57,7 @@ class MainActivity:AppCompatActivity() {
                     uidEditor?.commit()
 
                     val uidDevice : String? = firebaseToken
+                    Log.d("AIP", "FirebaseToken $uidDevice")
                     if(uidDevice!=null){
                         it.loginObject.uid?.let { it1 -> loginViewModel.registerDevice(this, it1, 'A', uidDevice) }
                     }else{

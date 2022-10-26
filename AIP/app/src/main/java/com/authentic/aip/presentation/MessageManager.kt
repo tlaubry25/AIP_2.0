@@ -11,10 +11,8 @@ import android.widget.RemoteViews
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import com.authentic.aip.R
 import com.authentic.aip.framework.App
-import java.util.*
 
 
 object MessageManager {
